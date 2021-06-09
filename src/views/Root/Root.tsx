@@ -5,9 +5,9 @@ import GlobalStyle from 'theme/GlobalStyle';
 const Root = () => (
   <div>
     <GlobalStyle />
-    <h1>🐶 Woff</h1>
-    <Button>Test</Button>
-    <Button width="500px">Test</Button>
+    <h1>TEST</h1>
+    <Button>Almost</Button>
+    <Button width="500px">Test long</Button>
     <Button secondary>Small btn</Button>
   </div>
 );
