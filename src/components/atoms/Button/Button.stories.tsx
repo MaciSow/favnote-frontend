@@ -24,4 +24,4 @@ export const Primary: React.VFC<{}> = () => {
 
   return <Button color={value}>Primary</Button>;
 };
-export const Secondary: React.VFC<{}> = () => <Button secondary>Secondary</Button>;
+export const Secondary: React.VFC<{}> = () => <Button>Secondary</Button>;
