@@ -1,12 +1,21 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
 import { withKnobs, select } from '@storybook/addon-knobs';
+import { ThemeProvider } from 'styled-components';
+import { myTheme } from '../../../theme/mainTheme';
 import Button from './Button';
 
 export default {
-  title: 'Components/Button',
+  title: 'Button',
   component: Button,
-  decorators: [withKnobs],
+  decorators: [
+    withKnobs,
+    (Story) => (
+      <ThemeProvider theme={myTheme}>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
 } as Meta;
 
 export const Primary: React.VFC<{}> = () => {
@@ -24,4 +33,4 @@ export const Primary: React.VFC<{}> = () => {
 
   return <Button color={value}>Primary</Button>;
 };
-export const Secondary: React.VFC<{}> = () => <Button>Secondary</Button>;
+export const Secondary: React.VFC<{}> = () => <Button secondary>Secondary</Button>;

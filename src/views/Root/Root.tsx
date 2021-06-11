@@ -2,12 +2,12 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import Button from 'components/atoms/Button/Button';
 import GlobalStyle from 'theme/GlobalStyle';
-import { theme } from '../../theme/mainTheme';
+import { myTheme } from '../../theme/mainTheme';
 
 const Root = () => (
   <div>
     <GlobalStyle />
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={myTheme}>
       <>
         <h1>TEST</h1>
         <Button>Almost</Button>
