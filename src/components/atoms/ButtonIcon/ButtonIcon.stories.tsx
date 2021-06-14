@@ -15,11 +15,11 @@ const YellowBackground = styled.div`
   align-items: center;
   height: 240px;
   width: 240px;
-  background: ${myTheme.primary};
+  background: ${({ theme }) => theme.note};
 `;
 
 export default {
-  title: 'ButtonIcon',
+  title: 'Atoms/ButtonIcon',
   component: ButtonIcon,
   decorators: [
     (Story) => (

@@ -24,6 +24,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "no-unused-vars": 1,
         "react/react-in-jsx-scope": "off",
         "import/extensions": "off",
         "import/no-unresolved": "off",

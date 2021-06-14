@@ -5,7 +5,7 @@ import { myTheme } from '../../../theme/mainTheme';
 import Heading from './Heading';
 
 export default {
-  title: 'Heading',
+  title: 'Atoms/Heading',
   component: Heading,
   decorators: [
     (Story) => (

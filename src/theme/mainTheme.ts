@@ -1,7 +1,7 @@
 export type MyTheme = {
-  primary: string;
-  secondary: string;
-  tertiary: string;
+  note: string;
+  twitter: string;
+  article: string;
   grey100: string;
   grey200: string;
   grey300: string;
@@ -19,9 +19,9 @@ export type MyTheme = {
 };
 
 export const myTheme = {
-  primary: 'hsl(49, 100%, 58%)',
-  secondary: 'hsl(196, 83%, 75%)',
-  tertiary: 'hsl(106, 47%, 64%)',
+  note: 'hsl(49, 100%, 58%)',
+  twitter: 'hsl(196, 83%, 75%)',
+  article: 'hsl(106, 47%, 64%)',
   grey100: 'hsl(0, 0%, 96%)',
   grey200: 'hsl(0, 0%, 90%)',
   grey300: 'hsl(0, 0%, 70%)',

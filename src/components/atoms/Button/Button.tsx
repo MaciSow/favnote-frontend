@@ -4,12 +4,10 @@ type Props = {
   secondary?: boolean;
 };
 
-const Button = styled.button`
+const Button = styled.button<Props>`
   border: none;
   border-radius: 24px;
-
-  background-color: ${({ theme }) => theme.primary};
-
+  background-color: ${({ theme }) => theme.note};
   width: 220px;
   height: 47px;
   font-weight: 600;
@@ -27,7 +25,5 @@ const Button = styled.button`
       font-size: 1rem;
     `}
 `;
-
-// background-color: ${({ color }: Props) => color || '#ffd82b'};
 
 export default Button;

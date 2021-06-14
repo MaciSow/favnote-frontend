@@ -5,7 +5,7 @@ import { myTheme } from '../../../theme/mainTheme';
 import Input from './Input';
 
 export default {
-  title: 'Input',
+  title: 'Atoms/Input',
   component: Input,
   decorators: [
     (Story) => (

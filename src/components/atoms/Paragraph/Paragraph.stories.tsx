@@ -5,7 +5,7 @@ import { myTheme } from '../../../theme/mainTheme';
 import Paragraph from './Paragraph';
 
 export default {
-  title: 'Paragraph',
+  title: 'Atoms/Paragraph',
   component: Paragraph,
   decorators: [
     (Story) => (
