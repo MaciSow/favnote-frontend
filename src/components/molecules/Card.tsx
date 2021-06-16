@@ -74,22 +74,16 @@ const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
 `;
 
-const Card = ({ cardType }: any) => (
+const Card = ({ cardType, title, created, twitterImg, articleUrl, content }: any) => (
   <StyledWrapper>
     <InnerWrapper activeColor={cardType}>
-      <StyledHeading>Hi hi hey</StyledHeading>
-      <DateInfo>3 days</DateInfo>
-      {cardType === 'twitter' && (
-        <StyledAvatar src="https://pbs.twimg.com/profile_images/1104491562854158336/A-NTwQhW_400x400.png" />
-      )}
-      {cardType === 'article' && <StyledLinkButton href="https://twitter.com/hello_roman" target="_blank" />}
+      <StyledHeading>{title}</StyledHeading>
+      <DateInfo>{created}</DateInfo>
+      {cardType === 'twitter' && <StyledAvatar src={twitterImg} />}
+      {cardType === 'article' && <StyledLinkButton href={articleUrl} target="_blank" />}
     </InnerWrapper>
     <InnerWrapper flex>
-      <Paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci consequuntur corporis cumque debitis
-        eligendi est iure labore minima, molestiae mollitia nobis nulla quaerat quia ratione, repudiandae sequi sint
-        sunt totam voluptates. A dicta iusto molestiae nesciunt odio, reprehenderit sapiente.
-      </Paragraph>
+      <Paragraph>{content}</Paragraph>
       <Button secondary>remove</Button>
     </InnerWrapper>
   </StyledWrapper>
@@ -97,10 +91,17 @@ const Card = ({ cardType }: any) => (
 
 Card.propTypes = {
   cardType: PropTypes.oneOf(['note', 'twitter', 'article']),
+  title: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  twitterImg: PropTypes.string,
+  articleUrl: PropTypes.string,
+  content: PropTypes.string.isRequired,
 };
 
 Card.defaultProps = {
   cardType: 'note',
+  twitterImg: 'https://pngimg.com/uploads/twitter/twitter_PNG1.png',
+  articleUrl: null,
 };
 
 export default Card;

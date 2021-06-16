@@ -16,6 +16,28 @@ export default {
   ],
 } as Meta;
 
-export const Note: React.VFC<{}> = () => <Card />;
-export const Twitter: React.VFC<{}> = () => <Card cardType="twitter" />;
-export const Article: React.VFC<{}> = () => <Card cardType="article" />;
+export const Note: React.VFC<{}> = () => (
+  <Card
+    title="Hey hey hello"
+    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magni!"
+    created="few days"
+  />
+);
+export const Twitter: React.VFC<{}> = () => (
+  <Card
+    cardType="twitter"
+    title="Hey hey hello"
+    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magni!"
+    created="few days"
+    twitterImg="https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png"
+  />
+);
+export const Article: React.VFC<{}> = () => (
+  <Card
+    cardType="article"
+    title="Hey hey hello"
+    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magni!"
+    created="few days"
+    articleUrl="https://www.goodwood.com/"
+  />
+);

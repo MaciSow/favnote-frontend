@@ -2,20 +2,22 @@ import styled from 'styled-components';
 
 type Props = {
   icon?: string;
-  active?: boolean;
 };
 
 const ButtonIcon = styled.button<Props>`
-  width: 67px;
-  height: 67px;
+  display: block;
+  width: 74px;
+  height: 74px;
   border-radius: 20px;
   background-image: url(${({ icon }) => icon});
-  background-size: 40%;
+  background-size: 50%;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   border: none;
 
-  background-color: ${({ active }) => (active ? 'white' : 'transparent')};
+  &.active {
+    background-color: white;
+  }
 `;
 
 export default ButtonIcon;
