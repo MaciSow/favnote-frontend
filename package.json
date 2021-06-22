@@ -22,15 +22,22 @@
       "git add"
     ]
   },
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
+  ],
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "8.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
+    "redux": "^4.1.0",
     "styled-components": "^5.3.0",
     "web-vitals": "^1.0.1"
   },

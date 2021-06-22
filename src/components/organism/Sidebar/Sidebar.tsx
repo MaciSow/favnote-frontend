@@ -28,9 +28,15 @@ const StyledWrapper = styled.div`
     activeColor ? theme[activeColor] : 'white'};
 `;
 
-const StyledLogo = styled.img`
-  width: 74px;
+const StyledLogo = styled(Link)`
+  align-self: start;
   margin-top: 48px;
+  width: 74px;
+  height: 50px;
+  background-image: url(${logoIcon});
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 100%;
 `;
 
 const StyledLogout = styled(ButtonIcon)`
@@ -51,9 +57,9 @@ const FuckingBulb = styled(ButtonIcon)`
 
 const Sidebar = ({ sideColor }: any) => (
   <StyledWrapper activeColor={sideColor}>
-    <StyledLogo src={logoIcon} alt="FavNote" />
+    <StyledLogo to="/" />
     <StyledChooseBar>
-      <ButtonIcon exact as={NavLink} activeClassName="active" to="/" icon={penIcon} />
+      <ButtonIcon as={NavLink} activeClassName="active" to="/notes" icon={penIcon} />
       <ButtonIcon as={NavLink} activeClassName="active" to="/twitters" icon={twitterIcon} />
       <FuckingBulb as={NavLink} activeClassName="active" to="/articles" icon={bulbIcon} />
     </StyledChooseBar>
@@ -62,11 +68,11 @@ const Sidebar = ({ sideColor }: any) => (
 );
 
 Sidebar.propTypes = {
-  sideColor: PropTypes.oneOf(['note', 'twitter', 'article']),
+  sideColor: PropTypes.oneOf(['notes', 'twitters', 'articles']),
 };
 
 Sidebar.defaultProps = {
-  sideColor: 'note',
+  sideColor: 'notes',
 };
 
 export default Sidebar;

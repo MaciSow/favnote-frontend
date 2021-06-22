@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import styled, { css, ThemeProps } from 'styled-components';
 import LinkIcon from 'assets/icons/link.svg';
 import { MyTheme } from '../../theme/mainTheme';
@@ -25,7 +26,7 @@ const StyledWrapper = styled.div`
 const StyledAvatar = styled.img`
   width: 86px;
   height: 86px;
-  border: 5px solid ${({ theme }: ThemeProps<MyTheme>) => theme.twitter};
+  border: 5px solid ${({ theme }: ThemeProps<MyTheme>) => theme.twitters};
   border-radius: 50%;
   position: absolute;
   right: 25px;
@@ -74,34 +75,62 @@ const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
 `;
 
-const Card = ({ cardType, title, created, twitterImg, articleUrl, content }: any) => (
-  <StyledWrapper>
-    <InnerWrapper activeColor={cardType}>
-      <StyledHeading>{title}</StyledHeading>
-      <DateInfo>{created}</DateInfo>
-      {cardType === 'twitter' && <StyledAvatar src={twitterImg} />}
-      {cardType === 'article' && <StyledLinkButton href={articleUrl} target="_blank" />}
-    </InnerWrapper>
-    <InnerWrapper flex>
-      <Paragraph>{content}</Paragraph>
-      <Button secondary>remove</Button>
-    </InnerWrapper>
-  </StyledWrapper>
-);
-
-Card.propTypes = {
-  cardType: PropTypes.oneOf(['note', 'twitter', 'article']),
-  title: PropTypes.string.isRequired,
-  created: PropTypes.string.isRequired,
-  twitterImg: PropTypes.string,
-  articleUrl: PropTypes.string,
-  content: PropTypes.string.isRequired,
+type CardProps = {
+  cardType?: string;
+  title: string;
+  created: string;
+  twitterImg?: string;
+  articleUrl?: string;
+  content: string;
+  id: string;
 };
 
-Card.defaultProps = {
-  cardType: 'note',
-  twitterImg: 'https://pngimg.com/uploads/twitter/twitter_PNG1.png',
-  articleUrl: null,
-};
+class Card extends Component<CardProps> {
+  state = {
+    redirect: false,
+  };
+
+  handleCardClick = () => this.setState({ redirect: true });
+
+  render() {
+    const { cardType, id, title, created, twitterImg, articleUrl, content } = this.props;
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={`${cardType}/${id}`} />;
+    }
+
+    return (
+      <StyledWrapper onClick={this.handleCardClick}>
+        <InnerWrapper activeColor={cardType}>
+          <StyledHeading>{title}</StyledHeading>
+          <DateInfo>{created}</DateInfo>
+          {cardType === 'twitters' && <StyledAvatar src={twitterImg} />}
+          {cardType === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
+        </InnerWrapper>
+        <InnerWrapper flex>
+          <Paragraph>{content}</Paragraph>
+          <Button secondary>remove</Button>
+        </InnerWrapper>
+      </StyledWrapper>
+    );
+  }
+}
+
+// Card.propTypes = {
+//   cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+//   title: PropTypes.string.isRequired,
+//   created: PropTypes.string.isRequired,
+//   twitterImg: PropTypes.string,
+//   articleUrl: PropTypes.string,
+//   content: PropTypes.string.isRequired,
+//   id: PropTypes.string.isRequired,
+// };
+//
+// Card.defaultProps = {
+//   cardType: 'notes',
+//   twitterImg: 'https://pngimg.com/uploads/twitter/twitter_PNG1.png',
+//   articleUrl: null,
+// };
 
 export default Card;

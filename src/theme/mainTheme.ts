@@ -1,11 +1,12 @@
 export type MyTheme = {
-  note: string;
-  twitter: string;
-  article: string;
+  notes: string;
+  twitters: string;
+  articles: string;
   grey100: string;
   grey200: string;
   grey300: string;
   black: string;
+  black07: string;
   light: number;
   bold: number;
   fontSize: {
@@ -19,13 +20,14 @@ export type MyTheme = {
 };
 
 export const myTheme = {
-  note: 'hsl(49, 100%, 58%)',
-  twitter: 'hsl(196, 83%, 75%)',
-  article: 'hsl(106, 47%, 64%)',
+  notes: 'hsl(49, 100%, 58%)',
+  twitters: 'hsl(196, 83%, 75%)',
+  articles: 'hsl(106, 47%, 64%)',
   grey100: 'hsl(0, 0%, 96%)',
   grey200: 'hsl(0, 0%, 90%)',
   grey300: 'hsl(0, 0%, 70%)',
   black: 'hsl(0, 0%, 0%)',
+  black07: 'hsl(0, 0%, 30%)',
   light: 300,
   bold: 600,
   fontSize: {

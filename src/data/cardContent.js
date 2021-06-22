@@ -41,6 +41,7 @@ export const twitters = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
     created: '1 day',
     twitterImg: 'https://pbs.twimg.com/profile_images/1104491562854158336/A-NTwQhW_400x400.png',
+    twitterAccount: 'https://twitter.com/hello_roman',
   },
   {
     id: 2,
@@ -49,6 +50,7 @@ export const twitters = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
     created: '1 day',
     twitterImg: 'https://pbs.twimg.com/profile_images/1336281436685541376/fRSl8uJP_400x400.jpg',
+    twitterAccount: 'https://twitter.com/dan_abramov',
   },
   {
     id: 3,
@@ -57,6 +59,7 @@ export const twitters = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
     created: '5 days',
     twitterImg: 'https://pbs.twimg.com/profile_images/1095819845382299649/zG-2_UHS_400x400.jpg',
+    twitterAccount: 'https://twitter.com/hello_roman',
   },
   {
     id: 4,
@@ -65,6 +68,7 @@ export const twitters = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
     created: '10 days',
     twitterImg: 'https://pbs.twimg.com/profile_images/1281071936605323266/wc1KRZLK_400x400.jpg',
+    twitterAccount: 'https://twitter.com/hello_roman',
   },
 ];
 

@@ -1,25 +1,24 @@
 import React from 'react';
-import UserPageTemplate from 'templates/UserPageTemplate';
+import GridTemplate from 'templates/GridTemplate';
 import Card from '../../components/molecules/Card';
 import { twitters } from '../../data/cardContent';
 
-const pageType = 'twitter';
+const pageType = 'twitters';
 
 const Twitters = () => (
-  <UserPageTemplate pageType={pageType}>
-    <>
-      {twitters.map((item) => (
-        <Card
-          cardType={pageType}
-          title={item.title}
-          content={item.content}
-          twitterImg={item.twitterImg}
-          created={item.created}
-          key={item.id}
-        />
-      ))}
-    </>
-  </UserPageTemplate>
+  <GridTemplate pageType={pageType}>
+    {twitters.map(({ title, content, created, id, twitterImg }) => (
+      <Card
+        id={id.toString()}
+        cardType={pageType}
+        title={title}
+        content={content}
+        twitterImg={twitterImg}
+        created={created}
+        key={id}
+      />
+    ))}
+  </GridTemplate>
 );
 
 export default Twitters;

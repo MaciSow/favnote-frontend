@@ -18,6 +18,7 @@ export default {
 
 export const Note: React.VFC<{}> = () => (
   <Card
+    id="1"
     title="Hey hey hello"
     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magni!"
     created="few days"
@@ -25,7 +26,8 @@ export const Note: React.VFC<{}> = () => (
 );
 export const Twitter: React.VFC<{}> = () => (
   <Card
-    cardType="twitter"
+    id="2"
+    cardType="twitters"
     title="Hey hey hello"
     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magni!"
     created="few days"
@@ -34,7 +36,8 @@ export const Twitter: React.VFC<{}> = () => (
 );
 export const Article: React.VFC<{}> = () => (
   <Card
-    cardType="article"
+    id="3"
+    cardType="articles"
     title="Hey hey hello"
     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magni!"
     created="few days"
