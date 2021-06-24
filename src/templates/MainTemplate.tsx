@@ -1,18 +1,52 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'theme/GlobalStyle';
 import { myTheme } from 'theme/mainTheme';
+import PageContext from 'context/context';
 
-const MainTemplate = ({ children }: any) => (
-  <div>
-    <GlobalStyle />
-    <ThemeProvider theme={myTheme}>{children}</ThemeProvider>
-  </div>
-);
+class MainTemplate extends Component<any, any> {
+  state = {
+    pageType: 'notes',
+  };
 
-MainTemplate.propTypes = {
-  children: PropTypes.element.isRequired,
-};
+  componentDidMount() {
+    this.setCurrentPage();
+  }
 
-export default MainTemplate;
+  componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>) {
+    this.setCurrentPage(prevState.pageType);
+  }
+
+  setCurrentPage = (prevPageType = '') => {
+    const pageTypes = ['twitters', 'articles', 'notes'];
+    const {
+      location: { pathname },
+    } = this.props;
+
+    const [currentPage] = pageTypes.filter((page) => pathname.includes(page));
+
+    if (prevPageType !== currentPage) {
+      this.setState({
+        pageType: currentPage,
+      });
+      console.log(this.state.pageType);
+    }
+  };
+
+  render() {
+    const { children } = this.props;
+    const { pageType } = this.state;
+
+    return (
+      <div>
+        <PageContext.Provider value={pageType}>
+          <GlobalStyle />
+          <ThemeProvider theme={myTheme}>{children}</ThemeProvider>
+        </PageContext.Provider>
+      </div>
+    );
+  }
+}
+
+export default withRouter(MainTemplate);

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { routes } from 'routes';
 import { removeItem as removeItemAction } from 'actions/actions';
 import { connect } from 'react-redux';
+import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -62,26 +63,26 @@ const StyledButton = styled(Button)`
   margin: 24px 0 16px 0;
 `;
 
-const Details = ({ id, pageType, title, created, content, twitterImg, link, removeItem }: any) => (
+const Details = ({ id, pageContext, title, created, content, twitterImg, link, removeItem }: any) => (
   <StyledWrapper>
     <StyledHeading big>{title}</StyledHeading>
     <CreatedInfo>Created - {created}</CreatedInfo>
-    {pageType === 'twitters' && <StyledAvatar href={link} target="_blank" avatarUrl={twitterImg} />}
+    {pageContext === 'twitters' && <StyledAvatar href={link} target="_blank" avatarUrl={twitterImg} />}
     <Paragraph>{content}</Paragraph>
-    {pageType !== 'notes' && (
+    {pageContext !== 'notes' && (
       <StyledLink href={link} target="_blank">
-        Open this {pageType.substr(0, pageType.length - 1)}
+        Open this {pageContext.substr(0, pageContext.length - 1)}
       </StyledLink>
     )}
     {
       // @ts-ignore
-      <StyledButton buttoncolor={pageType} as={Link} to={routes[pageType]}>
+      <StyledButton buttoncolor={pageContext} as={Link} to={routes[pageContext]}>
         close / save
       </StyledButton>
     }
     {
       // @ts-ignore
-      <Link to={routes[pageType]} onClick={() => removeItem(pageType, id)}>
+      <Link to={routes[pageContext]} onClick={() => removeItem(pageContext, id)}>
         remove note
       </Link>
     }
@@ -90,7 +91,7 @@ const Details = ({ id, pageType, title, created, content, twitterImg, link, remo
 
 Details.propTypes = {
   id: PropTypes.string.isRequired,
-  pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
@@ -100,7 +101,7 @@ Details.propTypes = {
 };
 
 Details.defaultProps = {
-  pageType: 'notes',
+  pageContext: 'notes',
   twitterImg:
     'https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png',
   link: '',
@@ -110,4 +111,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   removeItem: (itemType: string, id: string) => dispatch(removeItemAction(itemType, id)),
 });
 
-export default connect(null, mapDispatchToProps)(Details);
+export default connect(null, mapDispatchToProps)(withContext(Details));

@@ -92,20 +92,12 @@ class DetailsPage extends Component<Props> {
   };
 
   render() {
-    const { pageType, title, content, created, twitterImg, link } = this.state;
+    const { title, content, created, twitterImg, link } = this.state;
     const { id } = this.props.match.params;
 
     return (
-      <DetailsTemplate pageType={pageType}>
-        <Details
-          id={id}
-          pageType={pageType}
-          title={title}
-          content={content}
-          created={created}
-          twitterImg={twitterImg}
-          link={link}
-        />
+      <DetailsTemplate>
+        <Details id={id} title={title} content={content} created={created} twitterImg={twitterImg} link={link} />
       </DetailsTemplate>
     );
   }

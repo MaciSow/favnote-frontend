@@ -9,6 +9,7 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import { removeItem as removeItemAction } from 'actions/actions';
+import withContext from '../../hoc/withContext';
 
 type Props = {
   activeColor?: string;
@@ -82,7 +83,7 @@ const StyledButton = styled(Button)`
 `;
 
 type CardProps = {
-  cardType?: string;
+  pageContext?: string;
   title: string;
   created: string;
   twitterImg?: string;
@@ -100,27 +101,27 @@ class Card extends Component<CardProps> {
   handleCardClick = () => this.setState({ redirect: true });
 
   render() {
-    const { cardType, id, title, created, twitterImg, articleUrl, content, removeItem } = this.props;
+    const { pageContext, id, title, created, twitterImg, articleUrl, content, removeItem } = this.props;
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to={`${cardType}/${id}`} />;
+      return <Redirect to={`${pageContext}/${id}`} />;
     }
 
     return (
       <StyledWrapper onClick={this.handleCardClick}>
-        <InnerWrapper activeColor={cardType}>
+        <InnerWrapper activeColor={pageContext}>
           <StyledHeading>{title}</StyledHeading>
           <DateInfo>{created}</DateInfo>
-          {cardType === 'twitters' && <StyledAvatar src={twitterImg} />}
-          {cardType === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
+          {pageContext === 'twitters' && <StyledAvatar src={twitterImg} />}
+          {pageContext === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
         </InnerWrapper>
         <InnerWrapper flex>
           <Paragraph>{content}</Paragraph>
           <StyledButton
             secondary
             onClick={() => {
-              removeItem(cardType, id);
+              removeItem(pageContext, id);
             }}
           >
             remove
@@ -135,4 +136,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   removeItem: (itemType: string, id: string) => dispatch(removeItemAction(itemType, id)),
 });
 
-export default connect(null, mapDispatchToProps)(Card);
+export default connect(null, mapDispatchToProps)(withContext(Card));

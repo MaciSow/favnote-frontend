@@ -16,7 +16,7 @@ export default {
   ],
 } as Meta;
 
-export const Note: React.VFC<{}> = () => (
+export const Note: React.VFC = () => (
   <Card
     id="1"
     title="Hey hey hello"
@@ -24,20 +24,20 @@ export const Note: React.VFC<{}> = () => (
     created="few days"
   />
 );
-export const Twitter: React.VFC<{}> = () => (
+export const Twitter: React.VFC = () => (
   <Card
     id="2"
-    cardType="twitters"
+    pageContext="twitters"
     title="Hey hey hello"
     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magni!"
     created="few days"
     twitterImg="https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png"
   />
 );
-export const Article: React.VFC<{}> = () => (
+export const Article: React.VFC = () => (
   <Card
     id="3"
-    cardType="articles"
+    pageContext="articles"
     title="Hey hey hello"
     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magni!"
     created="few days"

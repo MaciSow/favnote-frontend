@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { Meta } from '@storybook/react';
 import StoryRouter from 'storybook-react-router';
 import { myTheme } from 'theme/mainTheme';
@@ -27,16 +27,7 @@ const content = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque
  quo ratione repellendus rerum, sunt. Aut autem consectetur dolores facere inventore magni, nisi 
  nobis non nostrum placeat quam sed, sequi similique? Commodi deserunt distinctio eos eveniet ipsam 
  minus mollitia, perferendis placeat quaerat vel.`;
-const handleRemove = () => {
-  console.log('do it');
-};
 
-export const Note: React.VFC<{}> = () => (
-  <Details title={title} created={created} content={content} handleRemove={handleRemove} />
-);
-export const Twitter: React.VFC<{}> = () => (
-  <Details pageType="twitters" title={title} created={created} content={content} handleRemove={handleRemove} />
-);
-export const Article: React.VFC<{}> = () => (
-  <Details pageType="articles" title={title} created={created} content={content} handleRemove={handleRemove} />
-);
+export const Note: React.VFC = () => <Details title={title} created={created} content={content} />;
+export const Twitter: React.VFC = () => <Details title={title} created={created} content={content} />;
+export const Article: React.VFC = () => <Details title={title} created={created} content={content} />;

@@ -9,6 +9,7 @@ import twitterIcon from 'assets/icons/twitter.svg';
 import logoIcon from 'assets/icons/logo.svg';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import PropTypes from 'prop-types';
+import withContext from 'hoc/withContext';
 
 type Props = {
   activeColor: string;
@@ -55,8 +56,8 @@ const FuckingBulb = styled(ButtonIcon)`
   background-size: 40%;
 `;
 
-const Sidebar = ({ sideColor }: any) => (
-  <StyledWrapper activeColor={sideColor}>
+const Sidebar = ({ pageContext }: any) => (
+  <StyledWrapper activeColor={pageContext}>
     <StyledLogo to="/" />
     <StyledChooseBar>
       <ButtonIcon as={NavLink} activeClassName="active" to="/notes" icon={penIcon} />
@@ -68,11 +69,11 @@ const Sidebar = ({ sideColor }: any) => (
 );
 
 Sidebar.propTypes = {
-  sideColor: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
 };
 
 Sidebar.defaultProps = {
-  sideColor: 'notes',
+  pageContext: 'notes',
 };
 
-export default Sidebar;
+export default withContext(Sidebar);

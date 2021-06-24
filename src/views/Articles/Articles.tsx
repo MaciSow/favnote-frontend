@@ -4,20 +4,10 @@ import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card';
 import { State } from 'reducers';
 
-const pageType = 'articles';
-
 const Articles = ({ articles }: State) => (
-  <GridTemplate pageType={pageType}>
+  <GridTemplate>
     {articles.map(({ title, content, created, id, articleUrl }) => (
-      <Card
-        id={id.toString()}
-        cardType={pageType}
-        title={title}
-        content={content}
-        articleUrl={articleUrl}
-        created={created}
-        key={id}
-      />
+      <Card id={id.toString()} title={title} content={content} articleUrl={articleUrl} created={created} key={id} />
     ))}
   </GridTemplate>
 );

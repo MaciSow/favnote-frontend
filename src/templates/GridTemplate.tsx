@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Sidebar from 'components/organism/Sidebar/Sidebar';
 import Input from 'components/atoms/Input/Input';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
+import withContext from 'hoc/withContext';
 import UserPageTemplate from './UserPageTemplate';
 
 const StyledWrapper = styled.div`
@@ -34,15 +34,15 @@ const StyledParagraph = styled(Paragraph)`
   font-weight: ${({ theme }) => theme.bold};
 `;
 
-const GridTemplate = ({ children, pageType }: any) => (
-  <UserPageTemplate pageType={pageType}>
+const GridTemplate = ({ children, pageContext }: any) => (
+  <UserPageTemplate>
     <StyledWrapper>
       <StyledPageHeader>
         <Input search placeholder="search" />
         <StyledHeading big as="h1">
-          {pageType}
+          {pageContext}
         </StyledHeading>
-        <StyledParagraph>6 {pageType}</StyledParagraph>
+        <StyledParagraph>6 {pageContext}</StyledParagraph>
       </StyledPageHeader>
       <StyledGrid>{children}</StyledGrid>
     </StyledWrapper>
@@ -51,11 +51,6 @@ const GridTemplate = ({ children, pageType }: any) => (
 
 GridTemplate.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
-  pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
 };
 
-GridTemplate.defaultProps = {
-  pageType: 'notes',
-};
-
-export default GridTemplate;
+export default withContext(GridTemplate);
