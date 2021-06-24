@@ -25,7 +25,9 @@
     ],
     "rules": {
         "no-unused-vars": 1,
+        "react/no-unused-state": 1,
         "react/destructuring-assignment": 1,
+        "prefer-destructuring": 1,
         "react/react-in-jsx-scope": "off",
         "react/state-in-constructor": [1,"never"],
         "import/extensions": "off",

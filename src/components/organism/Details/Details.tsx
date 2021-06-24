@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { routes } from 'routes';
+import { removeItem as removeItemAction } from 'actions/actions';
+import { connect } from 'react-redux';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -60,7 +62,7 @@ const StyledButton = styled(Button)`
   margin: 24px 0 16px 0;
 `;
 
-const Details = ({ pageType, title, created, content, handleRemove, twitterImg, link }: any) => (
+const Details = ({ id, pageType, title, created, content, twitterImg, link, removeItem }: any) => (
   <StyledWrapper>
     <StyledHeading big>{title}</StyledHeading>
     <CreatedInfo>Created - {created}</CreatedInfo>
@@ -73,13 +75,13 @@ const Details = ({ pageType, title, created, content, handleRemove, twitterImg, 
     )}
     {
       // @ts-ignore
-      <StyledButton buttonColor={pageType} as={Link} to={routes[pageType]}>
+      <StyledButton buttoncolor={pageType} as={Link} to={routes[pageType]}>
         close / save
       </StyledButton>
     }
     {
       // @ts-ignore
-      <Link to={routes[pageType]} onClick={handleRemove}>
+      <Link to={routes[pageType]} onClick={() => removeItem(pageType, id)}>
         remove note
       </Link>
     }
@@ -87,13 +89,14 @@ const Details = ({ pageType, title, created, content, handleRemove, twitterImg, 
 );
 
 Details.propTypes = {
+  id: PropTypes.string.isRequired,
   pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  handleRemove: PropTypes.func.isRequired,
   twitterImg: PropTypes.string,
   link: PropTypes.string,
+  removeItem: PropTypes.func.isRequired,
 };
 
 Details.defaultProps = {
@@ -103,4 +106,8 @@ Details.defaultProps = {
   link: '',
 };
 
-export default Details;
+const mapDispatchToProps = (dispatch: any) => ({
+  removeItem: (itemType: string, id: string) => dispatch(removeItemAction(itemType, id)),
+});
+
+export default connect(null, mapDispatchToProps)(Details);

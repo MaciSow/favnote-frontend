@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import GridTemplate from 'templates/GridTemplate';
-import Card from '../../components/molecules/Card';
-import { twitters } from '../../data/cardContent';
+import Card from 'components/molecules/Card';
+import { State } from 'reducers';
 
 const pageType = 'twitters';
 
-const Twitters = () => (
+const Twitters = ({ twitters }: State) => (
   <GridTemplate pageType={pageType}>
     {twitters.map(({ title, content, created, id, twitterImg }) => (
       <Card
@@ -21,4 +22,9 @@ const Twitters = () => (
   </GridTemplate>
 );
 
-export default Twitters;
+const mapStateToProps = (state: State) => {
+  const { twitters } = state;
+  return { twitters };
+};
+
+export default connect(mapStateToProps)(Twitters);

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled, { css, ThemeProps } from 'styled-components';
 import LinkIcon from 'assets/icons/link.svg';
-import { MyTheme } from '../../theme/mainTheme';
-import Paragraph from '../atoms/Paragraph/Paragraph';
-import Heading from '../atoms/Heading/Heading';
-import Button from '../atoms/Button/Button';
+import { MyTheme } from 'theme/mainTheme';
+import Paragraph from 'components/atoms/Paragraph/Paragraph';
+import Heading from 'components/atoms/Heading/Heading';
+import Button from 'components/atoms/Button/Button';
+import { removeItem as removeItemAction } from 'actions/actions';
 
 type Props = {
   activeColor?: string;
@@ -75,6 +77,10 @@ const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
 `;
 
+const StyledButton = styled(Button)`
+  z-index: 100;
+`;
+
 type CardProps = {
   cardType?: string;
   title: string;
@@ -83,6 +89,7 @@ type CardProps = {
   articleUrl?: string;
   content: string;
   id: string;
+  removeItem?: any;
 };
 
 class Card extends Component<CardProps> {
@@ -93,7 +100,7 @@ class Card extends Component<CardProps> {
   handleCardClick = () => this.setState({ redirect: true });
 
   render() {
-    const { cardType, id, title, created, twitterImg, articleUrl, content } = this.props;
+    const { cardType, id, title, created, twitterImg, articleUrl, content, removeItem } = this.props;
     const { redirect } = this.state;
 
     if (redirect) {
@@ -110,27 +117,22 @@ class Card extends Component<CardProps> {
         </InnerWrapper>
         <InnerWrapper flex>
           <Paragraph>{content}</Paragraph>
-          <Button secondary>remove</Button>
+          <StyledButton
+            secondary
+            onClick={() => {
+              removeItem(cardType, id);
+            }}
+          >
+            remove
+          </StyledButton>
         </InnerWrapper>
       </StyledWrapper>
     );
   }
 }
 
-// Card.propTypes = {
-//   cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
-//   title: PropTypes.string.isRequired,
-//   created: PropTypes.string.isRequired,
-//   twitterImg: PropTypes.string,
-//   articleUrl: PropTypes.string,
-//   content: PropTypes.string.isRequired,
-//   id: PropTypes.string.isRequired,
-// };
-//
-// Card.defaultProps = {
-//   cardType: 'notes',
-//   twitterImg: 'https://pngimg.com/uploads/twitter/twitter_PNG1.png',
-//   articleUrl: null,
-// };
+const mapDispatchToProps = (dispatch: any) => ({
+  removeItem: (itemType: string, id: string) => dispatch(removeItemAction(itemType, id)),
+});
 
-export default Card;
+export default connect(null, mapDispatchToProps)(Card);

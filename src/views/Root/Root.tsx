@@ -10,7 +10,7 @@ import DetailsPage from 'views/DetailsPage/DetailsPage';
 import { routes } from 'routes';
 
 const Root = () => (
-  <div>
+  <Provider store={myStore}>
     <BrowserRouter>
       <MainTemplate>
         <Switch>
@@ -24,7 +24,7 @@ const Root = () => (
         </Switch>
       </MainTemplate>
     </BrowserRouter>
-  </div>
+  </Provider>
 );
 
 export default Root;

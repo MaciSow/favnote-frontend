@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
 import styled from 'styled-components';
 import { routes } from 'routes';
-import Paragraph from '../../components/atoms/Paragraph/Paragraph';
+import { articles, notes, twitters } from 'data/cardContent';
 import Details from '../../components/organism/Details/Details';
-import { articles, notes, twitters } from '../../data/cardContent';
 
 type Props = {
   match: any;
@@ -45,10 +44,6 @@ class DetailsPage extends Component<Props> {
         break;
     }
   }
-
-  handleRemove = () => {
-    console.log(`remove ${this.state.pageType}`);
-  };
 
   clearState = () => {
     this.setState({
@@ -98,14 +93,15 @@ class DetailsPage extends Component<Props> {
 
   render() {
     const { pageType, title, content, created, twitterImg, link } = this.state;
+    const { id } = this.props.match.params;
 
     return (
       <DetailsTemplate pageType={pageType}>
         <Details
+          id={id}
           pageType={pageType}
           title={title}
           content={content}
-          handleRemove={this.handleRemove}
           created={created}
           twitterImg={twitterImg}
           link={link}
