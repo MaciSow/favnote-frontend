@@ -7,7 +7,7 @@ import { State } from 'reducers';
 const Notes = ({ notes }: State) => (
   <GridTemplate>
     {notes.map(({ title, content, created, id }) => (
-      <Card id={id.toString()} title={title} content={content} created={created} key={id} />
+      <Card id={id} title={title} content={content} created={created} key={id} />
     ))}
   </GridTemplate>
 );

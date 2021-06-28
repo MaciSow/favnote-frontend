@@ -7,7 +7,7 @@ import { State } from 'reducers';
 const Twitters = ({ twitters }: State) => (
   <GridTemplate>
     {twitters.map(({ title, content, created, id, twitterImg }) => (
-      <Card id={id.toString()} title={title} content={content} twitterImg={twitterImg} created={created} key={id} />
+      <Card id={id} title={title} content={content} twitterImg={twitterImg} created={created} key={id} />
     ))}
   </GridTemplate>
 );

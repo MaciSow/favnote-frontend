@@ -8,7 +8,7 @@ type Props = {
 const Input = styled.input<Props>`
   padding: 15px 30px;
   font-size: ${({ theme }) => theme.fontSize.s};
-  font-weight: ${({ theme }) => theme.regular};
+  font-weight: ${({ theme }) => theme.light};
   background-color: ${({ theme }) => theme.grey100};
   border: none;
   border-radius: 50px;

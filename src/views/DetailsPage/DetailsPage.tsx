@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
 import styled from 'styled-components';
 import { routes } from 'routes';
-import { articles, notes, twitters } from 'data/cardContent';
-import Details from '../../components/organism/Details/Details';
+import Details from 'components/organism/Details/Details';
+import { State } from 'reducers';
+import { connect } from 'react-redux';
 
 type Props = {
   match: any;
+  state: State;
 };
 
 class DetailsPage extends Component<Props> {
@@ -56,6 +58,7 @@ class DetailsPage extends Component<Props> {
   };
 
   setNewNote = () => {
+    const { notes } = this.props.state;
     const note = notes.find((item: any) => item.id.toString() === this.props.match.params.id);
     if (note) {
       this.setState({
@@ -67,6 +70,7 @@ class DetailsPage extends Component<Props> {
   };
 
   setNewTwitter = () => {
+    const { twitters } = this.props.state;
     const twitter = twitters.find((item: any) => item.id.toString() === this.props.match.params.id);
     if (twitter) {
       this.setState({
@@ -80,6 +84,7 @@ class DetailsPage extends Component<Props> {
   };
 
   setNewArticle = () => {
+    const { articles } = this.props.state;
     const article = articles.find((item: any) => item.id.toString() === this.props.match.params.id);
     if (article) {
       this.setState({
@@ -103,4 +108,6 @@ class DetailsPage extends Component<Props> {
   }
 }
 
-export default DetailsPage;
+const mapStateToProps = (state: State) => ({ state });
+
+export default connect(mapStateToProps)(DetailsPage);
