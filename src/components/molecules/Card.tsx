@@ -9,7 +9,7 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import { removeItem as removeItemAction } from 'actions/actions';
-import withContext from '../../hoc/withContext';
+import withContext from 'hoc/withContext';
 
 type Props = {
   activeColor?: string;
