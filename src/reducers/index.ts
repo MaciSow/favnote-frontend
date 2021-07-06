@@ -1,16 +1,27 @@
 import { Article, articles, Note, notes, Twitter, twitters } from 'data/cardContent';
-import { REMOVE_ITEM, ADD_ITEM, AUTH_SUCCESS, AUTH_REQUEST, AUTH_FAILURE } from 'actions/actions';
+import {
+  REMOVE_ITEM,
+  ADD_ITEM,
+  AUTH_SUCCESS,
+  AUTH_REQUEST,
+  AUTH_FAILURE,
+  FETCH_SUCCESS,
+  FETCH_REQUEST,
+  FETCH_FAILURE,
+} from 'actions/actions';
 
 export type State = {
+  userID: string;
   twitters: Twitter[];
   articles: Article[];
   notes: Note[];
 };
 
 const initialState = {
-  articles: [...articles],
-  twitters: [...twitters],
-  notes: [...notes],
+  userID: '60dda0bd574b76927c213e3f',
+  articles: [],
+  twitters: [],
+  notes: [],
 } as State;
 
 const rootReducer = (state = initialState, action: any) => {
@@ -19,6 +30,11 @@ const rootReducer = (state = initialState, action: any) => {
       return {
         ...state,
         userID: action.payload.data._id,
+      };
+    case FETCH_SUCCESS:
+      return {
+        ...state,
+        [action.payload.itemType]: [...action.payload.data],
       };
     case REMOVE_ITEM:
       return {

@@ -19,7 +19,6 @@ export default {
 } as Meta;
 
 const title = 'Hello my friend';
-const created = '24/12/2021';
 const content = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque eius eveniet 
  tempore. Consectetur dicta dolor, ea impedit laudantium magnam magni nemo obcaecati officia optio
  perspiciatis praesentium provident, quia. Atque beatae debitis quia. 
@@ -28,6 +27,6 @@ const content = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque
  nobis non nostrum placeat quam sed, sequi similique? Commodi deserunt distinctio eos eveniet ipsam 
  minus mollitia, perferendis placeat quaerat vel.`;
 
-export const Note: React.VFC = () => <Details title={title} created={created} content={content} />;
-export const Twitter: React.VFC = () => <Details title={title} created={created} content={content} />;
-export const Article: React.VFC = () => <Details title={title} created={created} content={content} />;
+export const Note: React.VFC = () => <Details title={title} content={content} />;
+export const Twitter: React.VFC = () => <Details title={title} content={content} />;
+export const Article: React.VFC = () => <Details title={title} content={content} />;

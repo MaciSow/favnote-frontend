@@ -69,12 +69,6 @@ const InnerWrapper = styled.div<Props>`
     `}
 `;
 
-const DateInfo = styled(Paragraph)`
-  margin: 0 0 5px;
-  font-weight: ${({ theme }) => theme.bold};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-`;
-
 const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
 `;
@@ -86,7 +80,6 @@ const StyledButton = styled(Button)`
 type CardProps = {
   pageContext?: string;
   title: string;
-  created: string;
   twitterImg?: string;
   articleUrl?: string;
   content: string;
@@ -102,7 +95,7 @@ class Card extends Component<CardProps> {
   handleCardClick = () => this.setState({ redirect: true });
 
   render() {
-    const { pageContext, id, title, created, twitterImg, articleUrl, content, removeItem } = this.props;
+    const { pageContext, id, title, twitterImg, articleUrl, content, removeItem } = this.props;
     const { redirect } = this.state;
 
     if (redirect) {
@@ -113,7 +106,7 @@ class Card extends Component<CardProps> {
       <StyledWrapper onClick={this.handleCardClick}>
         <InnerWrapper activeColor={pageContext}>
           <StyledHeading>{title}</StyledHeading>
-          <DateInfo>{created}</DateInfo>
+
           {pageContext === 'twitters' && <StyledAvatar src={twitterImg} />}
           {pageContext === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
         </InnerWrapper>

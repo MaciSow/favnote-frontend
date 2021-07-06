@@ -6,8 +6,8 @@ import { State } from 'reducers';
 
 const Articles = ({ articles }: State) => (
   <GridTemplate>
-    {articles.map(({ title, content, created, id, articleUrl }) => (
-      <Card id={id} title={title} content={content} articleUrl={articleUrl} created={created} key={id} />
+    {articles.map(({ title, content, id, articleUrl }) => (
+      <Card id={id} title={title} content={content} articleUrl={articleUrl} key={id} />
     ))}
   </GridTemplate>
 );

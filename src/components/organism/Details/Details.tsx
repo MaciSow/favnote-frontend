@@ -22,12 +22,12 @@ const StyledHeading = styled(Heading)`
   margin: 0;
 `;
 
-const CreatedInfo = styled(Paragraph)`
-  color: ${({ theme }) => theme.black07};
-  font-weight: ${({ theme }) => theme.bold};
-  text-transform: uppercase;
-  margin-bottom: 24px;
-`;
+// const CreatedInfo = styled(Paragraph)`
+//   color: ${({ theme }) => theme.black07};
+//   font-weight: ${({ theme }) => theme.bold};
+//   text-transform: uppercase;
+//   margin-bottom: 24px;
+// `;
 
 type AvatarProps = {
   avatarUrl?: string;
@@ -63,10 +63,9 @@ const StyledButton = styled(Button)`
   margin: 24px 0 16px 0;
 `;
 
-const Details = ({ id, pageContext, title, created, content, twitterImg, link, removeItem }: any) => (
+const Details = ({ id, pageContext, title, content, twitterImg, link, removeItem }: any) => (
   <StyledWrapper>
     <StyledHeading big>{title}</StyledHeading>
-    <CreatedInfo>Created - {created}</CreatedInfo>
     {pageContext === 'twitters' && <StyledAvatar href={link} target="_blank" avatarUrl={twitterImg} />}
     <Paragraph>{content}</Paragraph>
     {pageContext !== 'notes' && (
@@ -93,7 +92,6 @@ Details.propTypes = {
   id: PropTypes.string.isRequired,
   pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
-  created: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   twitterImg: PropTypes.string,
   link: PropTypes.string,

@@ -75,7 +75,7 @@ const NewItemBar = ({ handleClose, isVisible, pageContext, addItem }: any) => (
   <StyledWrapper isVisible={isVisible} activeColor={pageContext}>
     <Heading big>Create new {pageContext.substr(0, pageContext.length - 1)}</Heading>
     <Formik
-      initialValues={{ title: '', content: '', articleUrl: '', twitterName: '', created: 'now' }}
+      initialValues={{ title: '', content: '', articleUrl: '', twitterName: '' }}
       validate={(values) => {
         const errors = {};
         if (!values.title) {

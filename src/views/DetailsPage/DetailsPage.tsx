@@ -5,109 +5,69 @@ import { routes } from 'routes';
 import Details from 'components/organism/Details/Details';
 import { State } from 'reducers';
 import { connect } from 'react-redux';
+import withContext from 'hoc/withContext';
+import axios from 'axios';
 
 type Props = {
   match: any;
-  state: State;
+  pageContext: string;
+  activeItem: any;
 };
 
 class DetailsPage extends Component<Props> {
   state = {
-    pageType: 'notes',
-    title: '',
-    created: '',
-    content: '',
-    twitterImg: '',
-    link: '',
-  };
-
-  componentDidMount() {
-    const { path } = this.props.match;
-
-    switch (path) {
-      case routes.note:
-        this.clearState();
-        this.setState({ pageType: 'notes' });
-        this.setNewNote();
-        break;
-      case routes.twitter:
-        this.clearState();
-        this.setState({ pageType: 'twitters' });
-        this.setNewTwitter();
-        break;
-      case routes.article:
-        this.clearState();
-        this.setState({ pageType: 'articles' });
-        this.setNewArticle();
-        break;
-      default:
-        this.clearState();
-        this.setState({ pageType: 'notes' });
-        break;
-    }
-  }
-
-  clearState = () => {
-    this.setState({
+    activeItem: {
+      _id: '',
       title: '',
-      created: '',
       content: '',
       twitterImg: '',
       link: '',
-    });
+    },
   };
 
-  setNewNote = () => {
-    const { notes } = this.props.state;
-    const note = notes.find((item: any) => item.id.toString() === this.props.match.params.id);
-    if (note) {
-      this.setState({
-        title: note.title,
-        created: note.created,
-        content: note.content,
-      });
-    }
-  };
+  componentDidMount() {
+    const { activeItem, match } = this.props;
 
-  setNewTwitter = () => {
-    const { twitters } = this.props.state;
-    const twitter = twitters.find((item: any) => item.id.toString() === this.props.match.params.id);
-    if (twitter) {
-      this.setState({
-        title: twitter.title,
-        created: twitter.created,
-        content: twitter.content,
-        twitterImg: twitter.twitterImg,
-        link: twitter.twitterAccount,
-      });
-    }
-  };
+    if (activeItem) {
+      this.setState({ activeItem });
+    } else {
+      const { id } = match.params;
 
-  setNewArticle = () => {
-    const { articles } = this.props.state;
-    const article = articles.find((item: any) => item.id.toString() === this.props.match.params.id);
-    if (article) {
-      this.setState({
-        title: article.title,
-        created: article.created,
-        content: article.content,
-        link: article.articleUrl,
-      });
+      axios
+        .get(`http://localhost:9000/api/note/${id}`)
+        .then(({ data }) => {
+          this.setState({ activeItem: data });
+        })
+        .catch((err) => console.log(err));
     }
-  };
+  }
 
   render() {
-    const { title, content, created, twitterImg, link } = this.state;
-    const { id } = this.props.match.params;
+    const { activeItem } = this.state;
 
     return (
       <DetailsTemplate>
-        <Details id={id} title={title} content={content} created={created} twitterImg={twitterImg} link={link} />
+        <Details
+          id={activeItem._id}
+          title={activeItem.title}
+          content={activeItem.content}
+          twitterImg={activeItem.twitterImg}
+          link={activeItem.link}
+        />
       </DetailsTemplate>
     );
   }
 }
 
-const mapStateToProps = (state: State) => ({ state });
+const mapStateToProps = (state: State, ownProps: Props) => {
+  // @ts-ignore
+  if (state[ownProps.pageContext].length) {
+    return {
+      // @ts-ignore
+      activeItem: state[ownProps.pageContext].find((item: any) => item._id === ownProps.match.params.id),
+    };
+  }
+  return {};
+};
 
-export default connect(mapStateToProps)(DetailsPage);
+export default withContext(connect(mapStateToProps)(DetailsPage));
