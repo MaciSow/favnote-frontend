@@ -1,37 +1,62 @@
 import axios from 'axios';
 
-export const REMOVE_ITEM = 'REMOVE_ITEM';
-export const ADD_ITEM = 'ADD_ITEM';
+export const ADD_ITEM_REQUEST = 'ADD_ITEM_REQUEST';
+export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
+export const ADD_ITEM_FAILURE = 'ADD_ITEM_FAILURE';
+
+export const REMOVE_ITEM_REQUEST = 'REMOVE_ITEM_REQUEST';
+export const REMOVE_ITEM_SUCCESS = 'REMOVE_ITEM_SUCCESS';
+export const REMOVE_ITEM_FAILURE = 'REMOVE_ITEM_FAILURE';
+
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
+
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 
-export const removeItem = (itemType: string, id: string) => ({
-  type: REMOVE_ITEM,
-  payload: {
-    itemType,
-    id,
-  },
-});
+export const removeItem = (itemType: string, id: string) => (dispatch: any) => {
+  dispatch({ type: REMOVE_ITEM_REQUEST });
+  axios
+    .delete(`http://localhost:9000/api/note/${id}`)
+    .then(() => {
+      dispatch({
+        type: REMOVE_ITEM_SUCCESS,
+        payload: {
+          itemType,
+          id,
+        },
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: REMOVE_ITEM_FAILURE });
+    });
+};
 
-export const addItem = (itemType: string, itemContent: object) => {
-  const getId = () => `
-  ${Math.random().toString(36).substr(2, 9)}
-  `;
-
-  return {
-    type: ADD_ITEM,
-    payload: {
-      itemType,
-      item: {
-        id: getId(),
-        ...itemContent,
-      },
-    },
-  };
+export const addItem = (itemType: string, itemContent: object) => (dispatch: any, getState: any) => {
+  dispatch({ type: ADD_ITEM_REQUEST });
+  axios
+    .post(`http://localhost:9000/api/note`, {
+      userID: getState().userID,
+      type: itemType,
+      ...itemContent,
+    })
+    .then((response) => {
+      console.log(response);
+      dispatch({
+        type: ADD_ITEM_SUCCESS,
+        payload: {
+          itemType,
+          data: response.data,
+        },
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: ADD_ITEM_FAILURE });
+    });
 };
 
 export const authenticate = (username: string, password: string) => (dispatch: any) => {

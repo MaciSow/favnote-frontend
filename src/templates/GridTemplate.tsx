@@ -65,6 +65,7 @@ const StyledButtonIcon = styled(ButtonIcon)<ButtonIconProps>`
 `;
 
 type GridProps = {
+  cardsAmount: number;
   pageContext: string;
 };
 
@@ -80,7 +81,7 @@ class GridTemplate extends Component<GridProps> {
   };
 
   render() {
-    const { children, pageContext } = this.props;
+    const { children, cardsAmount, pageContext } = this.props;
     const { isNewBarVisible } = this.state;
 
     return (
@@ -91,7 +92,9 @@ class GridTemplate extends Component<GridProps> {
             <StyledHeading big as="h1">
               {pageContext}
             </StyledHeading>
-            <StyledParagraph>6 {pageContext}</StyledParagraph>
+            <StyledParagraph>
+              {cardsAmount} {pageContext}
+            </StyledParagraph>
           </StyledPageHeader>
           <StyledGrid>{children}</StyledGrid>
           <StyledButtonIcon onClick={this.toggleNewItemBar} icon={plusIcon} activeColor={pageContext} />

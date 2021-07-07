@@ -103,10 +103,9 @@ class Card extends Component<CardProps> {
     }
 
     return (
-      <StyledWrapper onClick={this.handleCardClick}>
-        <InnerWrapper activeColor={pageContext}>
+      <StyledWrapper>
+        <InnerWrapper activeColor={pageContext} onClick={this.handleCardClick}>
           <StyledHeading>{title}</StyledHeading>
-
           {pageContext === 'twitters' && <StyledAvatar src={twitterImg} />}
           {pageContext === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
         </InnerWrapper>
