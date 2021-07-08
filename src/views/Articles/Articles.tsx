@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card';
 import { State } from 'reducers';
+import { Article } from '../../data/cardContent';
+import { fetchItems } from '../../actions/actions';
 
-const Articles = ({ articles }: State) => (
-  <GridTemplate>
-    {articles.map(({ title, content, id, articleUrl }) => (
-      <Card id={id} title={title} content={content} articleUrl={articleUrl} key={id} />
-    ))}
-  </GridTemplate>
-);
+type ArticlesProps = {
+  articles: Article[];
+  fetchArticles: any;
+};
+
+class Articles extends Component<ArticlesProps> {
+  componentDidMount() {
+    this.props.fetchArticles();
+  }
+
+  render() {
+    const { articles } = this.props;
+
+    return (
+      <GridTemplate cardsAmount={articles.length}>
+        {articles.map(({ title, content, _id: id, articleUrl }) => (
+          <Card id={id} title={title} content={content} articleUrl={articleUrl} key={id} />
+        ))}
+      </GridTemplate>
+    );
+  }
+}
 
 const mapStateToProps = (state: State) => {
   const { articles } = state;
   return { articles };
 };
 
-export default connect(mapStateToProps)(Articles);
+const mapDispatchToProps = (dispatch: any) => ({
+  fetchArticles: () => dispatch(fetchItems('articles')),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Articles);

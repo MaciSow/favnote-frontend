@@ -44,7 +44,6 @@ export const addItem = (itemType: string, itemContent: object) => (dispatch: any
       ...itemContent,
     })
     .then((response) => {
-      console.log(response);
       dispatch({
         type: ADD_ITEM_SUCCESS,
         payload: {
@@ -67,7 +66,6 @@ export const authenticate = (username: string, password: string) => (dispatch: a
       password,
     })
     .then((payload) => {
-      console.log(payload);
       dispatch({ type: AUTH_SUCCESS, payload });
     })
     .catch((err) => {

@@ -1,27 +1,27 @@
 export const articles: Article[] = [
   {
-    id: '1',
+    _id: '1',
     title: 'React on my mind',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
     articleUrl: 'https://youtube.com/helloroman',
   },
   {
-    id: '2',
+    _id: '2',
     title: 'Wish you React',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
     articleUrl: 'https://youtube.com/helloroman',
   },
   {
-    id: '3',
+    _id: '3',
     title: 'You gave React a bad name',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
     articleUrl: 'https://youtube.com/helloroman',
   },
   {
-    id: '4',
+    _id: '4',
     title: 'Is it React you looking for?',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
@@ -66,25 +66,25 @@ export const twitters: Twitter[] = [
 
 export const notes: Note[] = [
   {
-    id: '1',
+    _id: '1',
     title: 'Wake me up when Vue ends',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
   },
   {
-    id: '2',
+    _id: '2',
     title: 'Como es An Gular?',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
   },
   {
-    id: '3',
+    _id: '3',
     title: 'Du bist Reactish',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
   },
   {
-    id: '4',
+    _id: '4',
     title: 'Reactuj się kto moze!',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
@@ -100,14 +100,14 @@ export type Twitter = {
 };
 
 export type Article = {
-  id: string;
+  _id: string;
   title: string;
   content: string;
   articleUrl: string;
 };
 
 export type Note = {
-  id: string;
+  _id: string;
   title: string;
   content: string;
 };

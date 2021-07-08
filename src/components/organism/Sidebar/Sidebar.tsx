@@ -69,7 +69,7 @@ const Sidebar = ({ pageContext }: any) => (
 );
 
 Sidebar.propTypes = {
-  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles', 'login']),
 };
 
 Sidebar.defaultProps = {

@@ -1,5 +1,4 @@
 import React from 'react';
-import PageContext from 'context/context';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

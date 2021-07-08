@@ -79,7 +79,7 @@ const LoginRegisterPage = ({ pageContext, userID, authenticate }: LoginRegisterP
           <StyledForm>
             <Heading>Sign in</Heading>
             <Field name="username" type="text" as={StyledInput} placeholder="login" />
-            <Field name="password" type="text" as={StyledInput} placeholder="password" />
+            <Field name="password" type="password" as={StyledInput} placeholder="password" />
             <Button type="submit" buttoncolor="notes">
               {buttonText}
             </Button>

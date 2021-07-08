@@ -1,4 +1,4 @@
-import { Article, articles, Note, notes, Twitter, twitters } from 'data/cardContent';
+import { Article, Note, Twitter } from 'data/cardContent';
 import {
   ADD_ITEM_SUCCESS,
   ADD_ITEM_REQUEST,
@@ -14,6 +14,7 @@ import {
 
 export type State = {
   userID: string;
+  isLoading: boolean;
   twitters: Twitter[];
   articles: Article[];
   notes: Note[];

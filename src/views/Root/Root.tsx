@@ -16,7 +16,6 @@ const Root = () => (
       <MainTemplate>
         <Switch>
           <Route exact path={[routes.login, routes.register]} component={LoginRegisterPage} />
-          {/* <Route exact path={routes.register} component={LoginRegisterPage}  /> */}
           <Route exact path={routes.home} render={() => <Redirect to={routes.notes} />} />
           <Route exact path={routes.notes} component={Notes} />
           <Route path={routes.note} component={DetailsPage} />
