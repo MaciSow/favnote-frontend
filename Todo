@@ -1,0 +1,15 @@
+x- add default avatar to twitter card
+x- move right twitter avatar in details
+x- change link 'remove note' to delete button
+x- make loading view during load notes (use reducer)
+- do sth with search input
+- clean up code
+- get out type 'any'
+
+New Item Bar
+- make basic regex validation
+- fix hover border
+- make better Error Message
+- add animation to close btn
+- add input imageLink to twitters
+- clear inputs after close

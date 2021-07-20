@@ -51,7 +51,7 @@ const StyledLinkButton = styled.a`
 
 const InnerWrapper = styled.div<Props>`
   position: relative;
-  padding: 17px 30px;
+  padding: 17px 64px 17px 30px;
   background-color: ${({ activeColor, theme }: Props & ThemeProps<MyTheme>) =>
     // @ts-ignore
     activeColor ? theme[activeColor] : 'white'};
@@ -97,6 +97,10 @@ class Card extends Component<CardProps> {
   render() {
     const { pageContext, id, title, twitterImg, articleUrl, content, removeItem } = this.props;
     const { redirect } = this.state;
+    const imageLink =
+      twitterImg && twitterImg !== ''
+        ? twitterImg
+        : 'https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png';
 
     if (redirect) {
       return <Redirect to={`${pageContext}/${id}`} />;
@@ -106,7 +110,10 @@ class Card extends Component<CardProps> {
       <StyledWrapper>
         <InnerWrapper activeColor={pageContext} onClick={this.handleCardClick}>
           <StyledHeading>{title}</StyledHeading>
-          {pageContext === 'twitters' && <StyledAvatar src={twitterImg} />}
+          {
+            // @ts-ignore
+            pageContext === 'twitters' && <StyledAvatar src={imageLink} />
+          }
           {pageContext === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
         </InnerWrapper>
         <InnerWrapper flex>

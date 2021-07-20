@@ -5,7 +5,6 @@ import UserPageTemplate from 'templates/UserPageTemplate';
 
 const StyledWrapper = styled.div`
   margin: 100px;
-  width: 100%;
   height: 100%;
 `;
 

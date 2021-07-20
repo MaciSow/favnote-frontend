@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProps } from 'styled-components';
 import PropTypes from 'prop-types';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
@@ -9,16 +9,20 @@ import { routes } from 'routes';
 import { removeItem as removeItemAction } from 'actions/actions';
 import { connect } from 'react-redux';
 import withContext from 'hoc/withContext';
+import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
+import trash from 'assets/icons/trash.svg';
+import { MyTheme } from '../../../theme/mainTheme';
 
 const StyledWrapper = styled.div`
   display: flex;
-  max-width: 500px;
+  max-width: 600px;
   height: 100%;
   flex-direction: column;
   position: relative;
 `;
 
 const StyledHeading = styled(Heading)`
+  max-width: 550px;
   margin: 0;
 `;
 
@@ -36,8 +40,8 @@ type AvatarProps = {
 const StyledAvatar = styled.a<AvatarProps>`
   display: block;
   position: absolute;
-  top: -16px;
-  right: 0;
+  top: -24px;
+  right: -100px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -60,6 +64,38 @@ const StyledButton = styled(Button)`
   align-items: center;
   text-decoration: none;
   color: black;
+  margin-right: 10px;
+
+  &:hover {
+    font-size: 1.8rem;
+  }
+  transition: 150ms ease-in-out;
+`;
+
+type ButtonIconProps = {
+  activeColor: string;
+};
+
+const StyledButtonIcon = styled(ButtonIcon)<ButtonIconProps>`
+  background-color: ${({ activeColor, theme }: ButtonIconProps & ThemeProps<MyTheme>) =>
+    // @ts-ignore
+    theme[activeColor]};
+  background-size: 40%;
+  border-radius: 50%;
+  height: 47px;
+  width: 47px;
+
+  &:hover {
+    background-size: 48%;
+  }
+
+  transition: 150ms ease-in-out;
+`;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   margin: 24px 0 16px 0;
 `;
 
@@ -73,18 +109,24 @@ const Details = ({ id, pageContext, title, content, twitterImg, link, removeItem
         Open this {pageContext.substr(0, pageContext.length - 1)}
       </StyledLink>
     )}
-    {
-      // @ts-ignore
-      <StyledButton buttoncolor={pageContext} as={Link} to={routes[pageContext]}>
-        close / save
-      </StyledButton>
-    }
-    {
-      // @ts-ignore
-      <Link to={routes[pageContext]} onClick={() => removeItem(pageContext, id)}>
-        remove note
-      </Link>
-    }
+    <StyledButtonWrapper>
+      {
+        // @ts-ignore
+        <StyledButton buttoncolor={pageContext} as={Link} to={routes[pageContext]}>
+          close
+        </StyledButton>
+      }
+      {
+        <StyledButtonIcon
+          onClick={() => removeItem(pageContext, id)}
+          icon={trash}
+          activeColor={pageContext}
+          as={Link}
+          // @ts-ignore
+          to={routes[pageContext]}
+        />
+      }
+    </StyledButtonWrapper>
   </StyledWrapper>
 );
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled, { ThemeProps } from 'styled-components';
+import { connect } from 'react-redux';
 import Input from 'components/atoms/Input/Input';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
@@ -9,10 +10,13 @@ import plusIcon from 'assets/icons/plus.svg';
 import withContext from 'hoc/withContext';
 import UserPageTemplate from './UserPageTemplate';
 import { MyTheme } from '../theme/mainTheme';
+import { State } from '../reducers';
+import Loading from '../components/atoms/Loading/Loading';
 
 const StyledWrapper = styled.div`
   position: relative;
   padding: 25px 150px 25px 70px;
+  min-height: 100vh;
 `;
 
 const StyledGrid = styled.div`
@@ -64,9 +68,32 @@ const StyledButtonIcon = styled(ButtonIcon)<ButtonIconProps>`
   z-index: 110;
 `;
 
+const StyledNotification = styled(Heading)`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: ${({ theme }) => theme.black07};
+
+  ::first-letter {
+    text-transform: uppercase;
+  }
+`;
+
+const StyledLoading = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  padding-top: 24px;
+`;
+
 type GridProps = {
   cardsAmount: number;
   pageContext: string;
+  isLoading: boolean;
+  isError: boolean;
 };
 
 class GridTemplate extends Component<GridProps> {
@@ -81,7 +108,7 @@ class GridTemplate extends Component<GridProps> {
   };
 
   render() {
-    const { children, cardsAmount, pageContext } = this.props;
+    const { children, cardsAmount, pageContext, isLoading, isError } = this.props;
     const { isNewBarVisible } = this.state;
 
     return (
@@ -96,6 +123,18 @@ class GridTemplate extends Component<GridProps> {
               {cardsAmount} {pageContext}
             </StyledParagraph>
           </StyledPageHeader>
+          {isError || isLoading ? (
+            <>
+              {isError && <StyledNotification big>Something go wrong :(</StyledNotification>}
+              {isLoading && (
+                <StyledLoading>
+                  <Loading />
+                </StyledLoading>
+              )}
+            </>
+          ) : (
+            <>{!cardsAmount && <StyledNotification big>{pageContext} are empty. Add something</StyledNotification>}</>
+          )}
           <StyledGrid>{children}</StyledGrid>
           <StyledButtonIcon onClick={this.toggleNewItemBar} icon={plusIcon} activeColor={pageContext} />
           <NewItemBar handleClose={this.toggleNewItemBar} isVisible={isNewBarVisible} />
@@ -105,4 +144,9 @@ class GridTemplate extends Component<GridProps> {
   }
 }
 
-export default withContext(GridTemplate);
+const mapStateToProps = ({ isLoading, isError }: State) => ({
+  isLoading,
+  isError,
+});
+
+export default connect(mapStateToProps)(withContext(GridTemplate));

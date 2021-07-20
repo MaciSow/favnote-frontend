@@ -15,6 +15,7 @@ import {
 export type State = {
   userID: string;
   isLoading: boolean;
+  isError: boolean;
   twitters: Twitter[];
   articles: Article[];
   notes: Note[];
@@ -22,29 +23,45 @@ export type State = {
 
 const initialState = {
   userID: '60dda0bd574b76927c213e3f',
-  isLoading: false,
+  isLoading: true,
+  isError: false,
   articles: [],
   twitters: [],
   notes: [],
 } as State;
 
 const rootReducer = (state = initialState, action: any) => {
+  const basicState = {
+    ...state,
+    isLoading: false,
+    isError: false,
+  };
+
   switch (action.type) {
     case AUTH_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         userID: action.payload.data._id,
       };
     case FETCH_REQUEST:
       return {
         ...state,
         isLoading: true,
+        isError: false,
       };
     case FETCH_SUCCESS:
       return {
+        // ...basicState,
         ...state,
+        isLoading: false,
+        isError: false,
         [action.payload.itemType]: [...action.payload.data],
+      };
+    case FETCH_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
       };
     case REMOVE_ITEM_SUCCESS:
       return {
