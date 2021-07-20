@@ -20,7 +20,7 @@ class Articles extends Component<ArticlesProps> {
     const { articles } = this.props;
 
     return (
-      <GridTemplate cardsAmount={articles.length}>
+      <GridTemplate>
         {articles.map(({ title, content, _id: id, articleUrl }) => (
           <Card id={id} title={title} content={content} articleUrl={articleUrl} key={id} />
         ))}

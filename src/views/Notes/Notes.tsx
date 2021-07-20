@@ -19,7 +19,7 @@ class Notes extends Component<NotesProps> {
   render() {
     const { notes } = this.props;
     return (
-      <GridTemplate cardsAmount={notes.length}>
+      <GridTemplate>
         {notes.map(({ title, content, _id: id }) => (
           <Card id={id} title={title} content={content} key={id} />
         ))}

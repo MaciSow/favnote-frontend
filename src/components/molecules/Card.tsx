@@ -12,7 +12,7 @@ import { removeItem as removeItemAction } from 'actions/actions';
 import withContext from 'hoc/withContext';
 
 type Props = {
-  activeColor?: string;
+  activecolor?: string;
   flex?: boolean;
 };
 
@@ -52,9 +52,9 @@ const StyledLinkButton = styled.a`
 const InnerWrapper = styled.div<Props>`
   position: relative;
   padding: 17px 64px 17px 30px;
-  background-color: ${({ activeColor, theme }: Props & ThemeProps<MyTheme>) =>
+  background-color: ${({ activecolor, theme }: Props & ThemeProps<MyTheme>) =>
     // @ts-ignore
-    activeColor ? theme[activeColor] : 'white'};
+    activecolor ? theme[activecolor] : 'white'};
 
   :first-of-type {
     z-index: 10;
@@ -75,6 +75,11 @@ const StyledHeading = styled(Heading)`
 
 const StyledButton = styled(Button)`
   z-index: 100;
+
+  &:hover {
+    font-size: 1.2rem;
+  }
+  transition: 150ms ease-in-out;
 `;
 
 type CardProps = {
@@ -108,7 +113,7 @@ class Card extends Component<CardProps> {
 
     return (
       <StyledWrapper>
-        <InnerWrapper activeColor={pageContext} onClick={this.handleCardClick}>
+        <InnerWrapper activecolor={pageContext} onClick={this.handleCardClick}>
           <StyledHeading>{title}</StyledHeading>
           {
             // @ts-ignore
@@ -118,12 +123,7 @@ class Card extends Component<CardProps> {
         </InnerWrapper>
         <InnerWrapper flex>
           <Paragraph>{content}</Paragraph>
-          <StyledButton
-            secondary
-            onClick={() => {
-              removeItem(pageContext, id);
-            }}
-          >
+          <StyledButton secondary onClick={() => removeItem(pageContext, id)}>
             remove
           </StyledButton>
         </InnerWrapper>

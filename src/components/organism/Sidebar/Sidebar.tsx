@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import withContext from 'hoc/withContext';
 
 type Props = {
-  activeColor: string;
+  activecolor: string;
 };
 
 const StyledWrapper = styled.div`
@@ -24,9 +24,9 @@ const StyledWrapper = styled.div`
   justify-content: center;
   width: 153px;
   height: 100vh;
-  background-color: ${({ activeColor, theme }: Props & ThemeProps<MyTheme>) =>
+  background-color: ${({ activecolor, theme }: Props & ThemeProps<MyTheme>) =>
     // @ts-ignore
-    activeColor ? theme[activeColor] : 'white'};
+    activecolor ? theme[activecolor] : 'white'};
 `;
 
 const StyledLogo = styled(Link)`
@@ -57,7 +57,7 @@ const FuckingBulb = styled(ButtonIcon)`
 `;
 
 const Sidebar = ({ pageContext }: any) => (
-  <StyledWrapper activeColor={pageContext}>
+  <StyledWrapper activecolor={pageContext}>
     <StyledLogo to="/" />
     <StyledChooseBar>
       <ButtonIcon as={NavLink} activeClassName="active" to="/notes" icon={penIcon} />

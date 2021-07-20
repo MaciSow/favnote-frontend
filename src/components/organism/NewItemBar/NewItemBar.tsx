@@ -10,15 +10,15 @@ import { addItem as addItemAction } from 'actions/actions';
 import Heading from 'components/atoms/Heading/Heading';
 
 type WrapperProps = {
-  activeColor: string;
+  activecolor: string;
   isVisible: boolean;
 };
 
 const StyledWrapper = styled.div`
   border-left: 5px solid
-    ${({ activeColor, theme }: WrapperProps & ThemeProps<MyTheme>) =>
+    ${({ activecolor, theme }: WrapperProps & ThemeProps<MyTheme>) =>
       // @ts-ignore
-      theme[activeColor]};
+      theme[activecolor]};
   position: fixed;
   z-index: 100;
   display: flex;
@@ -72,7 +72,7 @@ const StyledErrorMessage = styled(ErrorMessage)`
 `;
 
 const NewItemBar = ({ handleClose, isVisible, pageContext, addItem }: any) => (
-  <StyledWrapper isVisible={isVisible} activeColor={pageContext}>
+  <StyledWrapper isVisible={isVisible} activecolor={pageContext}>
     <Heading big>Create new {pageContext.substr(0, pageContext.length - 1)}</Heading>
     <Formik
       initialValues={{ title: '', content: '', articleUrl: '', twitterName: '' }}

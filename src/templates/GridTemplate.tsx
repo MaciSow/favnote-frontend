@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { ChangeEvent, Component, ReactChildren, ReactElement, ReactNode } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { connect } from 'react-redux';
+import { MyTheme } from 'theme/mainTheme';
+import { State } from 'reducers';
 import Input from 'components/atoms/Input/Input';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
@@ -8,10 +10,8 @@ import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import NewItemBar from 'components/organism/NewItemBar/NewItemBar';
 import plusIcon from 'assets/icons/plus.svg';
 import withContext from 'hoc/withContext';
+import Loading from 'components/atoms/Loading/Loading';
 import UserPageTemplate from './UserPageTemplate';
-import { MyTheme } from '../theme/mainTheme';
-import { State } from '../reducers';
-import Loading from '../components/atoms/Loading/Loading';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -32,7 +32,6 @@ const StyledGrid = styled.div`
   @media (max-width: 1100px) {
     grid-template-columns: 1fr;
   }
-  grid-gap: 85px;
 `;
 
 const StyledPageHeader = styled.div`
@@ -53,16 +52,16 @@ const StyledParagraph = styled(Paragraph)`
 `;
 
 type ButtonIconProps = {
-  activeColor: string;
+  activecolor: string;
 };
 
 const StyledButtonIcon = styled(ButtonIcon)<ButtonIconProps>`
   position: fixed;
   bottom: 40px;
   right: 40px;
-  background-color: ${({ activeColor, theme }: ButtonIconProps & ThemeProps<MyTheme>) =>
+  background-color: ${({ activecolor, theme }: ButtonIconProps & ThemeProps<MyTheme>) =>
     // @ts-ignore
-    theme[activeColor]};
+    theme[activecolor]};
   background-size: 40%;
   border-radius: 50%;
   z-index: 110;
@@ -90,7 +89,7 @@ const StyledLoading = styled.div`
 `;
 
 type GridProps = {
-  cardsAmount: number;
+  children: ReactNode;
   pageContext: string;
   isLoading: boolean;
   isError: boolean;
@@ -99,7 +98,20 @@ type GridProps = {
 class GridTemplate extends Component<GridProps> {
   state = {
     isNewBarVisible: false,
+    cards: [],
+    value: '',
   };
+
+  componentDidMount() {
+    this.setBasicCard();
+  }
+
+  componentDidUpdate(prevProps: Readonly<GridProps>) {
+    const { children } = this.props;
+    if (prevProps.children !== children) {
+      this.setBasicCard();
+    }
+  }
 
   toggleNewItemBar = () => {
     this.setState((prevState: any) => ({
@@ -107,20 +119,42 @@ class GridTemplate extends Component<GridProps> {
     }));
   };
 
+  setBasicCard = () => {
+    const { children } = this.props;
+
+    this.setState({
+      cards: [...(children as Array<ReactChildren>)],
+      value: '',
+    });
+  };
+
+  handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const { children } = this.props;
+
+    const childrenArray = [...(children as Array<ReactElement>)];
+
+    if (childrenArray.length) {
+      this.setState({
+        cards: childrenArray.filter((item) => item.props.title.indexOf(e.target.value) !== -1),
+        value: e.target.value,
+      });
+    }
+  };
+
   render() {
-    const { children, cardsAmount, pageContext, isLoading, isError } = this.props;
-    const { isNewBarVisible } = this.state;
+    const { pageContext, isLoading, isError } = this.props;
+    const { isNewBarVisible, cards, value } = this.state;
 
     return (
       <UserPageTemplate>
         <StyledWrapper>
           <StyledPageHeader>
-            <Input search placeholder="search" />
+            <Input search placeholder="search" value={value} onChange={(event) => this.handleSearch(event)} />
             <StyledHeading big as="h1">
               {pageContext}
             </StyledHeading>
             <StyledParagraph>
-              {cardsAmount} {pageContext}
+              {cards.length} {pageContext}
             </StyledParagraph>
           </StyledPageHeader>
           {isError || isLoading ? (
@@ -133,10 +167,10 @@ class GridTemplate extends Component<GridProps> {
               )}
             </>
           ) : (
-            <>{!cardsAmount && <StyledNotification big>{pageContext} are empty. Add something</StyledNotification>}</>
+            <>{!cards.length && <StyledNotification big>{pageContext} are empty. Add something</StyledNotification>}</>
           )}
-          <StyledGrid>{children}</StyledGrid>
-          <StyledButtonIcon onClick={this.toggleNewItemBar} icon={plusIcon} activeColor={pageContext} />
+          <StyledGrid>{cards}</StyledGrid>
+          <StyledButtonIcon onClick={this.toggleNewItemBar} icon={plusIcon} activecolor={pageContext} />
           <NewItemBar handleClose={this.toggleNewItemBar} isVisible={isNewBarVisible} />
         </StyledWrapper>
       </UserPageTemplate>

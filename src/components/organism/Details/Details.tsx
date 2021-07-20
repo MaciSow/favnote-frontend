@@ -73,13 +73,13 @@ const StyledButton = styled(Button)`
 `;
 
 type ButtonIconProps = {
-  activeColor: string;
+  activecolor: string;
 };
 
 const StyledButtonIcon = styled(ButtonIcon)<ButtonIconProps>`
-  background-color: ${({ activeColor, theme }: ButtonIconProps & ThemeProps<MyTheme>) =>
+  background-color: ${({ activecolor, theme }: ButtonIconProps & ThemeProps<MyTheme>) =>
     // @ts-ignore
-    theme[activeColor]};
+    theme[activecolor]};
   background-size: 40%;
   border-radius: 50%;
   height: 47px;
@@ -120,7 +120,7 @@ const Details = ({ id, pageContext, title, content, twitterImg, link, removeItem
         <StyledButtonIcon
           onClick={() => removeItem(pageContext, id)}
           icon={trash}
-          activeColor={pageContext}
+          activecolor={pageContext}
           as={Link}
           // @ts-ignore
           to={routes[pageContext]}

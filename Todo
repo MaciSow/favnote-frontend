@@ -2,9 +2,11 @@ x- add default avatar to twitter card
 x- move right twitter avatar in details
 x- change link 'remove note' to delete button
 x- make loading view during load notes (use reducer)
-- do sth with search input
+x- do sth with search input
 - clean up code
 - get out type 'any'
+- fix login user
+- add some animation
 
 New Item Bar
 - make basic regex validation
