@@ -144,6 +144,9 @@ class GridTemplate extends Component<GridProps> {
   render() {
     const { pageContext, isLoading, isError } = this.props;
     const { isNewBarVisible, cards, value } = this.state;
+    const itemsAmountInfo = `${cards.length} ${
+      cards.length === 1 ? pageContext.substr(0, pageContext.length - 1) : pageContext
+    }`;
 
     return (
       <UserPageTemplate>
@@ -153,9 +156,7 @@ class GridTemplate extends Component<GridProps> {
             <StyledHeading big as="h1">
               {pageContext}
             </StyledHeading>
-            <StyledParagraph>
-              {cards.length} {pageContext}
-            </StyledParagraph>
+            <StyledParagraph>{itemsAmountInfo}</StyledParagraph>
           </StyledPageHeader>
           {isError || isLoading ? (
             <>

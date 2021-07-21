@@ -20,8 +20,15 @@ class Twitters extends Component<TwittersProps> {
     const { twitters } = this.props;
     return (
       <GridTemplate>
-        {twitters.map(({ title, content, _id: id, twitterImg }) => (
-          <Card id={id} title={title} content={content} twitterImg={twitterImg} key={id} />
+        {twitters.map(({ title, content, twitterName, _id: id, articleImageUrl }) => (
+          <Card
+            id={id}
+            title={title}
+            content={content}
+            twitterName={twitterName}
+            twitterImg={articleImageUrl}
+            key={id}
+          />
         ))}
       </GridTemplate>
     );

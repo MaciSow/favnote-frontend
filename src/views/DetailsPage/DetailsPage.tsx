@@ -20,8 +20,8 @@ class DetailsPage extends Component<Props> {
       _id: '',
       title: '',
       content: '',
-      twitterImg: '',
-      link: '',
+      twitterName: '',
+      articleImageUrl: '',
     },
   };
 
@@ -36,6 +36,8 @@ class DetailsPage extends Component<Props> {
       axios
         .get(`http://localhost:9000/api/note/${id}`)
         .then(({ data }) => {
+          console.log(data);
+
           this.setState({ activeItem: data });
         })
         .catch((err) => console.log(err));
@@ -51,8 +53,8 @@ class DetailsPage extends Component<Props> {
           id={activeItem._id}
           title={activeItem.title}
           content={activeItem.content}
-          twitterImg={activeItem.twitterImg}
-          link={activeItem.link}
+          twitterName={activeItem.twitterName}
+          articleImageUrl={activeItem.articleImageUrl}
         />
       </DetailsTemplate>
     );

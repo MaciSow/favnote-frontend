@@ -10,8 +10,10 @@ const Input = styled.input<Props>`
   font-size: ${({ theme }) => theme.fontSize.s};
   font-weight: ${({ theme }) => theme.light};
   background-color: ${({ theme }) => theme.grey100};
+  font-family: 'Montserrat', sans-serif;
   border: none;
   border-radius: 50px;
+  outline: none;
 
   ::placeholder {
     text-transform: uppercase;

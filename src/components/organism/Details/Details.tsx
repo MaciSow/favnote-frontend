@@ -69,6 +69,7 @@ const StyledButton = styled(Button)`
   &:hover {
     font-size: 1.8rem;
   }
+
   transition: 150ms ease-in-out;
 `;
 
@@ -99,52 +100,59 @@ const StyledButtonWrapper = styled.div`
   margin: 24px 0 16px 0;
 `;
 
-const Details = ({ id, pageContext, title, content, twitterImg, link, removeItem }: any) => (
-  <StyledWrapper>
-    <StyledHeading big>{title}</StyledHeading>
-    {pageContext === 'twitters' && <StyledAvatar href={link} target="_blank" avatarUrl={twitterImg} />}
-    <Paragraph>{content}</Paragraph>
-    {pageContext !== 'notes' && (
-      <StyledLink href={link} target="_blank">
-        Open this {pageContext.substr(0, pageContext.length - 1)}
-      </StyledLink>
-    )}
-    <StyledButtonWrapper>
-      {
-        // @ts-ignore
-        <StyledButton buttoncolor={pageContext} as={Link} to={routes[pageContext]}>
-          close
-        </StyledButton>
-      }
-      {
-        <StyledButtonIcon
-          onClick={() => removeItem(pageContext, id)}
-          icon={trash}
-          activecolor={pageContext}
-          as={Link}
+const Details = ({ id, pageContext, title, content, twitterName, articleImageUrl, removeItem }: any) => {
+  const correctLink = pageContext === 'twitters' ? `https://twitter.com/${twitterName}` : articleImageUrl;
+  const twitterImg =
+    articleImageUrl !== ''
+      ? articleImageUrl
+      : 'https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png';
+
+  return (
+    <StyledWrapper>
+      <StyledHeading big>{title}</StyledHeading>
+      {pageContext === 'twitters' && <StyledAvatar href={correctLink} target="_blank" avatarUrl={twitterImg} />}
+      <Paragraph>{content}</Paragraph>
+      {pageContext !== 'notes' && (
+        <StyledLink href={correctLink} target="_blank">
+          Open this {pageContext.substr(0, pageContext.length - 1)}
+        </StyledLink>
+      )}
+      <StyledButtonWrapper>
+        {
           // @ts-ignore
-          to={routes[pageContext]}
-        />
-      }
-    </StyledButtonWrapper>
-  </StyledWrapper>
-);
+          <StyledButton buttoncolor={pageContext} as={Link} to={routes[pageContext]}>
+            close
+          </StyledButton>
+        }
+        {
+          <StyledButtonIcon
+            onClick={() => removeItem(pageContext, id)}
+            icon={trash}
+            activecolor={pageContext}
+            as={Link}
+            // @ts-ignore
+            to={routes[pageContext]}
+          />
+        }
+      </StyledButtonWrapper>
+    </StyledWrapper>
+  );
+};
 
 Details.propTypes = {
   id: PropTypes.string.isRequired,
   pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  twitterImg: PropTypes.string,
-  link: PropTypes.string,
+  twitterName: PropTypes.string,
+  articleImageUrl: PropTypes.string,
   removeItem: PropTypes.func.isRequired,
 };
 
 Details.defaultProps = {
   pageContext: 'notes',
-  twitterImg:
-    'https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png',
-  link: '',
+  twitterName: 'Noname :c',
+  articleImageUrl: '',
 };
 
 const mapDispatchToProps = (dispatch: any) => ({

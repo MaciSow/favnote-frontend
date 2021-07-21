@@ -27,11 +27,20 @@ const StyledWrapper = styled.div`
   grid-template-rows: 0.25fr 1fr;
 `;
 
-const StyledAvatar = styled.img`
+type AvatarProps = {
+  avatarUrl?: string;
+};
+
+const StyledAvatar = styled.a<AvatarProps>`
   width: 86px;
   height: 86px;
   border: 5px solid ${({ theme }: ThemeProps<MyTheme>) => theme.twitters};
   border-radius: 50%;
+  background-color: black;
+  background-image: url(${({ avatarUrl }) => avatarUrl});
+  background-size: 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
   position: absolute;
   right: 25px;
   top: 25px;
@@ -79,12 +88,14 @@ const StyledButton = styled(Button)`
   &:hover {
     font-size: 1.2rem;
   }
+
   transition: 150ms ease-in-out;
 `;
 
 type CardProps = {
   pageContext?: string;
   title: string;
+  twitterName?: string;
   twitterImg?: string;
   articleUrl?: string;
   content: string;
@@ -100,7 +111,7 @@ class Card extends Component<CardProps> {
   handleCardClick = () => this.setState({ redirect: true });
 
   render() {
-    const { pageContext, id, title, twitterImg, articleUrl, content, removeItem } = this.props;
+    const { pageContext, id, title, twitterName, twitterImg, articleUrl, content, removeItem } = this.props;
     const { redirect } = this.state;
     const imageLink =
       twitterImg && twitterImg !== ''
@@ -115,10 +126,9 @@ class Card extends Component<CardProps> {
       <StyledWrapper>
         <InnerWrapper activecolor={pageContext} onClick={this.handleCardClick}>
           <StyledHeading>{title}</StyledHeading>
-          {
-            // @ts-ignore
-            pageContext === 'twitters' && <StyledAvatar src={imageLink} />
-          }
+          {pageContext === 'twitters' && (
+            <StyledAvatar avatarUrl={imageLink} href={`https://twitter.com/${twitterName}`} target="_blank" />
+          )}
           {pageContext === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
         </InnerWrapper>
         <InnerWrapper flex>

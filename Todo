@@ -9,9 +9,9 @@ x- do sth with search input
 - add some animation
 
 New Item Bar
+x- fix hover border (it was outline!)
+x- add input imageLink to twitters
 - make basic regex validation
-- fix hover border
 - make better Error Message
 - add animation to close btn
-- add input imageLink to twitters
 - clear inputs after close

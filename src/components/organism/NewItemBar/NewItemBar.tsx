@@ -50,6 +50,7 @@ const StyledTextArea = styled.textarea`
   height: 30vh;
   margin-top: 30px;
   resize: vertical;
+  outline: none;
 
   ::placeholder {
     text-transform: uppercase;
@@ -64,18 +65,24 @@ const StyledInput = styled(Input)`
 
 const StyledButton = styled(Button)`
   margin-top: 100px;
+
+  &:hover {
+    font-size: 1.8rem;
+  }
+
+  transition: 150ms ease-in-out;
 `;
 
 const StyledErrorMessage = styled(ErrorMessage)`
   margin: 8px 0 0 16px;
-  color: #7b0302;
+  color: ${({ theme }) => theme.warning};
 `;
 
 const NewItemBar = ({ handleClose, isVisible, pageContext, addItem }: any) => (
   <StyledWrapper isVisible={isVisible} activecolor={pageContext}>
     <Heading big>Create new {pageContext.substr(0, pageContext.length - 1)}</Heading>
     <Formik
-      initialValues={{ title: '', content: '', articleUrl: '', twitterName: '' }}
+      initialValues={{ title: '', content: '', articleImageUrl: '', twitterName: '' }}
       validate={(values) => {
         const errors = {};
         if (!values.title) {
@@ -98,13 +105,19 @@ const NewItemBar = ({ handleClose, isVisible, pageContext, addItem }: any) => (
         <StyledForm>
           <Field type="text" name="title" as={StyledInput} placeholder="title" />
           <StyledErrorMessage name="title" component="div" />
-          {pageContext === 'articles' && <Field type="text" name="articleUrl" as={StyledInput} placeholder="link" />}
           {pageContext === 'twitters' && (
             <Field type="text" name="twitterName" as={StyledInput} placeholder="account name" />
           )}
+          {pageContext !== 'notes' && (
+            <Field
+              type="text"
+              name="articleImageUrl"
+              as={StyledInput}
+              placeholder={`${pageContext === 'articles' ? 'article' : 'image'} link`}
+            />
+          )}
           <Field name="content" as={StyledTextArea} placeholder="Content" />
           <StyledErrorMessage name="content" component="div" />
-
           <StyledButton buttoncolor={pageContext} type="submit">
             Add {pageContext.substr(0, pageContext.length - 1)}
           </StyledButton>

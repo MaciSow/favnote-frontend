@@ -21,8 +21,8 @@ class Articles extends Component<ArticlesProps> {
 
     return (
       <GridTemplate>
-        {articles.map(({ title, content, _id: id, articleUrl }) => (
-          <Card id={id} title={title} content={content} articleUrl={articleUrl} key={id} />
+        {articles.map(({ title, content, _id: id, articleImageUrl }) => (
+          <Card id={id} title={title} content={content} articleUrl={articleImageUrl} key={id} />
         ))}
       </GridTemplate>
     );
