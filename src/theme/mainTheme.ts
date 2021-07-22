@@ -2,6 +2,7 @@ export type MyTheme = {
   notes: string;
   twitters: string;
   articles: string;
+  error: string;
   warning: string;
   grey100: string;
   grey200: string;
@@ -24,7 +25,8 @@ export const myTheme = {
   notes: 'hsl(49, 100%, 58%)',
   twitters: 'hsl(196, 83%, 75%)',
   articles: 'hsl(106, 47%, 64%)',
-  warning: 'hsl(0,79%,36%)',
+  error: 'hsl(0,79%,36%)',
+  warning: 'hsl(43,100%,36%)',
   grey100: 'hsl(0, 0%, 96%)',
   grey200: 'hsl(0, 0%, 90%)',
   grey300: 'hsl(0, 0%, 70%)',

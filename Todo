@@ -11,7 +11,7 @@ x- do sth with search input
 New Item Bar
 x- fix hover border (it was outline!)
 x- add input imageLink to twitters
-- make basic regex validation
-- make better Error Message
+x- make basic regex validation
+x- make better Error Message
 - add animation to close btn
 - clear inputs after close
