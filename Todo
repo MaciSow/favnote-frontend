@@ -7,11 +7,13 @@ x- do sth with search input
 - get out type 'any'
 - fix login user
 - add some animation
+- fix cursor over buttons
 
 New Item Bar
 x- fix hover border (it was outline!)
 x- add input imageLink to twitters
 x- make basic regex validation
 x- make better Error Message
-- add animation to close btn
-- clear inputs after close
+x- add animation to close btn
+x- clear inputs after close
+

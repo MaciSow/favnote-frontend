@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GridTemplate from 'templates/GridTemplate';
-import Card from 'components/molecules/Card';
+import Card from 'components/molecules/Card/Card';
 import { State } from 'reducers';
 import { Twitter } from 'data/cardContent';
 import { fetchItems } from 'actions/actions';

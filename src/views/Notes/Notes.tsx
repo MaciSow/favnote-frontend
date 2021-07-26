@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Card from 'components/molecules/Card';
+import Card from 'components/molecules/Card/Card';
 import GridTemplate from 'templates/GridTemplate';
 import { State } from 'reducers';
 import { Note } from 'data/cardContent';

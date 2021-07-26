@@ -1,8 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Meta } from '@storybook/react';
+import { myTheme } from 'theme/mainTheme';
 import Card from './Card';
-import { myTheme } from '../../theme/mainTheme';
 
 export default {
   title: 'modules/Card',

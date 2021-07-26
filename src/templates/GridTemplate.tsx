@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component, ReactChildren, ReactElement, ReactNode } from 'react';
-import styled, { ThemeProps } from 'styled-components';
+import styled, { css, ThemeProps } from 'styled-components';
 import { connect } from 'react-redux';
 import { MyTheme } from 'theme/mainTheme';
 import { State } from 'reducers';
@@ -53,6 +53,7 @@ const StyledParagraph = styled(Paragraph)`
 
 type ButtonIconProps = {
   activecolor: string;
+  rotated: boolean;
 };
 
 const StyledButtonIcon = styled(ButtonIcon)<ButtonIconProps>`
@@ -65,6 +66,9 @@ const StyledButtonIcon = styled(ButtonIcon)<ButtonIconProps>`
   background-size: 40%;
   border-radius: 50%;
   z-index: 110;
+
+  transform: rotate(${({ rotated }) => (rotated ? '45deg' : '0')});
+  transition: transform 150ms ease-in-out;
 `;
 
 const StyledNotification = styled(Heading)`
@@ -100,6 +104,7 @@ class GridTemplate extends Component<GridProps> {
     isNewBarVisible: false,
     cards: [],
     value: '',
+    resetFunction: () => null,
   };
 
   componentDidMount() {
@@ -117,6 +122,8 @@ class GridTemplate extends Component<GridProps> {
     this.setState((prevState: any) => ({
       isNewBarVisible: !prevState.isNewBarVisible,
     }));
+
+    this.handleResetForm();
   };
 
   setBasicCard = () => {
@@ -126,6 +133,18 @@ class GridTemplate extends Component<GridProps> {
       cards: [...(children as Array<ReactChildren>)],
       value: '',
     });
+  };
+
+  addResetFunction = (resetFunction: any) => {
+    this.setState({ resetFunction });
+  };
+
+  handleResetForm = () => {
+    const { resetFunction, isNewBarVisible } = this.state;
+
+    if (resetFunction && !isNewBarVisible) {
+      resetFunction();
+    }
   };
 
   handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -171,8 +190,17 @@ class GridTemplate extends Component<GridProps> {
             <>{!cards.length && <StyledNotification big>{pageContext} are empty. Add something</StyledNotification>}</>
           )}
           <StyledGrid>{cards}</StyledGrid>
-          <StyledButtonIcon onClick={this.toggleNewItemBar} icon={plusIcon} activecolor={pageContext} />
-          <NewItemBar handleClose={this.toggleNewItemBar} isVisible={isNewBarVisible} />
+          <StyledButtonIcon
+            rotated={isNewBarVisible}
+            onClick={this.toggleNewItemBar}
+            icon={plusIcon}
+            activecolor={pageContext}
+          />
+          <NewItemBar
+            handleResetForm={this.addResetFunction}
+            handleClose={this.toggleNewItemBar}
+            isVisible={isNewBarVisible}
+          />
         </StyledWrapper>
       </UserPageTemplate>
     );
