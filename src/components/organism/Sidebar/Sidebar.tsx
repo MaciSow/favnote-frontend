@@ -10,6 +10,8 @@ import logoIcon from 'assets/icons/logo.svg';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import PropTypes from 'prop-types';
 import withContext from 'hoc/withContext';
+import { connect } from 'react-redux';
+import { logout as logoutAction } from '../../../actions/actions';
 
 type Props = {
   activecolor: string;
@@ -56,7 +58,7 @@ const FuckingBulb = styled(ButtonIcon)`
   background-size: 40%;
 `;
 
-const Sidebar = ({ pageContext }: any) => (
+const Sidebar = ({ pageContext, logout }: any) => (
   <StyledWrapper activecolor={pageContext}>
     <StyledLogo to="/" />
     <StyledChooseBar>
@@ -64,7 +66,7 @@ const Sidebar = ({ pageContext }: any) => (
       <ButtonIcon as={NavLink} activeClassName="active" to="/twitters" icon={twitterIcon} />
       <FuckingBulb as={NavLink} activeClassName="active" to="/articles" icon={bulbIcon} />
     </StyledChooseBar>
-    <StyledLogout as={NavLink} to="/login" icon={logoutIcon} />
+    <StyledLogout as={NavLink} to="/login" icon={logoutIcon} onClick={logout} />
   </StyledWrapper>
 );
 
@@ -76,4 +78,8 @@ Sidebar.defaultProps = {
   pageContext: 'notes',
 };
 
-export default withContext(Sidebar);
+const mapDispatchToProps = (dispatch: any) => ({
+  logout: () => dispatch(logoutAction()),
+});
+
+export default connect(null, mapDispatchToProps)(withContext(Sidebar));

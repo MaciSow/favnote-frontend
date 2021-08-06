@@ -7,9 +7,13 @@ import {
   AUTH_SUCCESS,
   AUTH_REQUEST,
   AUTH_FAILURE,
+  REGISTER_SUCCESS,
+  REGISTER_REQUEST,
+  REGISTER_FAILURE,
   FETCH_SUCCESS,
   FETCH_REQUEST,
   FETCH_FAILURE,
+  LOGOUT,
 } from 'actions/actions';
 
 export type State = {
@@ -23,7 +27,7 @@ export type State = {
 
 const initialState = {
   userID: '60dda0bd574b76927c213e3f',
-  isLoading: true,
+  isLoading: false,
   isError: false,
   articles: [],
   twitters: [],
@@ -38,10 +42,46 @@ const rootReducer = (state = initialState, action: any) => {
   };
 
   switch (action.type) {
+    case AUTH_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
     case AUTH_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         userID: action.payload.data._id,
+      };
+    case AUTH_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    case REGISTER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        userID: action.payload.data._id,
+      };
+    case REGISTER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        userID: '',
       };
     case FETCH_REQUEST:
       return {

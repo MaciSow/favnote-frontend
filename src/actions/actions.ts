@@ -12,6 +12,12 @@ export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
 
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAILURE = 'REGISTER_FAILURE';
+
+export const LOGOUT = 'LOGOUT';
+
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
@@ -72,6 +78,26 @@ export const authenticate = (username: string, password: string) => (dispatch: a
       console.log(err);
       dispatch({ type: AUTH_FAILURE });
     });
+};
+
+export const registerUser = (username: string, password: string) => (dispatch: any) => {
+  dispatch({ type: REGISTER_REQUEST });
+  return axios
+    .post('http://localhost:9000/api/user/register', {
+      username,
+      password,
+    })
+    .then((payload) => {
+      dispatch({ type: REGISTER_SUCCESS, payload });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: REGISTER_FAILURE });
+    });
+};
+
+export const logout = () => (dispatch: any) => {
+  dispatch({ type: LOGOUT });
 };
 
 export const fetchItems = (itemType: string) => (dispatch: any, getState: any) => {

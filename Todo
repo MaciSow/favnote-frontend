@@ -3,11 +3,13 @@ x- move right twitter avatar in details
 x- change link 'remove note' to delete button
 x- make loading view during load notes (use reducer)
 x- do sth with search input
-- clean up code
-- get out type 'any'
-- fix login user
+x- fix login user
+x- make class from function in LoginRegister
+x- handle logout by Sidebar
 - add some animation
 - fix cursor over buttons
+- clean up code
+- get out type 'any'
 
 New Item Bar
 x- fix hover border (it was outline!)
