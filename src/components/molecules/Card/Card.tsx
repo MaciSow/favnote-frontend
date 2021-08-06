@@ -15,7 +15,11 @@ type Props = {
   flex?: boolean;
 };
 
-const StyledWrapper = styled.div`
+type StyledWrapperProps = {
+  isHover: boolean;
+};
+
+const StyledWrapper = styled.div<StyledWrapperProps>`
   min-height: 380px;
   min-width: 380px;
   box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
@@ -24,6 +28,14 @@ const StyledWrapper = styled.div`
   position: relative;
   display: grid;
   grid-template-rows: 0.25fr 1fr;
+
+  ${({ isHover }) =>
+    isHover &&
+    css`
+      box-shadow: 0 4px 16px 8px hsl(0, 0%, 0%, 0.15);
+      cursor: pointer;
+    `}
+  transition: 150ms ease-in-out;
 `;
 
 type AvatarProps = {
@@ -105,13 +117,22 @@ type CardProps = {
 class Card extends Component<CardProps> {
   state = {
     redirect: false,
+    isHover: false,
   };
 
   handleCardClick = () => this.setState({ redirect: true });
 
+  handleMouseOver = () => {
+    this.setState((prevState: any) => (prevState.hover ? null : { isHover: true }));
+  };
+
+  handleMouseLeave = () => {
+    this.setState({ isHover: false });
+  };
+
   render() {
     const { pageContext, id, title, twitterName, twitterImg, articleUrl, content, removeItem } = this.props;
-    const { redirect } = this.state;
+    const { redirect, isHover } = this.state;
     const imageLink =
       twitterImg && twitterImg !== ''
         ? twitterImg
@@ -122,8 +143,13 @@ class Card extends Component<CardProps> {
     }
 
     return (
-      <StyledWrapper>
-        <InnerWrapper activecolor={pageContext} onClick={this.handleCardClick}>
+      <StyledWrapper isHover={isHover}>
+        <InnerWrapper
+          activecolor={pageContext}
+          onClick={this.handleCardClick}
+          onMouseOver={this.handleMouseOver}
+          onMouseLeave={this.handleMouseLeave}
+        >
           <StyledHeading>{title}</StyledHeading>
           {pageContext === 'twitters' && (
             <StyledAvatar avatarUrl={imageLink} href={`https://twitter.com/${twitterName}`} target="_blank" />

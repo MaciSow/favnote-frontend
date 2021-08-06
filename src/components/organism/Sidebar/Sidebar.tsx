@@ -44,6 +44,11 @@ const StyledLogo = styled(Link)`
 
 const StyledLogout = styled(ButtonIcon)`
   align-self: end;
+
+  &:hover {
+    background-size: 56%;
+  }
+  transition: 150ms ease-in-out;
 `;
 
 const StyledChooseBar = styled.div`
@@ -54,17 +59,33 @@ const StyledChooseBar = styled.div`
   height: 300px;
 `;
 
-const FuckingBulb = styled(ButtonIcon)`
+const StyledButton = styled(ButtonIcon)`
+  &:hover {
+    &.active {
+      background-size: 50%;
+    }
+    background-size: 60%;
+  }
+  transition: 150ms ease-in-out;
+`;
+
+const StyledBulbButton = styled(StyledButton)`
   background-size: 40%;
+  &:hover {
+    &.active {
+      background-size: 40%;
+    }
+    background-size: 46%;
+  }
 `;
 
 const Sidebar = ({ pageContext, logout }: any) => (
   <StyledWrapper activecolor={pageContext}>
     <StyledLogo to="/" />
     <StyledChooseBar>
-      <ButtonIcon as={NavLink} activeClassName="active" to="/notes" icon={penIcon} />
-      <ButtonIcon as={NavLink} activeClassName="active" to="/twitters" icon={twitterIcon} />
-      <FuckingBulb as={NavLink} activeClassName="active" to="/articles" icon={bulbIcon} />
+      <StyledButton as={NavLink} activeClassName="active" to="/notes" icon={penIcon} />
+      <StyledButton as={NavLink} activeClassName="active" to="/twitters" icon={twitterIcon} />
+      <StyledBulbButton as={NavLink} activeClassName="active" to="/articles" icon={bulbIcon} />
     </StyledChooseBar>
     <StyledLogout as={NavLink} to="/login" icon={logoutIcon} onClick={logout} />
   </StyledWrapper>

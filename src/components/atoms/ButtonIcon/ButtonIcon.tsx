@@ -14,10 +14,17 @@ const ButtonIcon = styled.button<Props>`
   background-position: 50% 50%;
   background-repeat: no-repeat;
   border: none;
+  outline: none;
 
   &.active {
     background-color: white;
   }
+
+  &:focus-visible {
+    box-shadow: 0 0px 6px 4px hsl(0, 0%, 0%, 0.15);
+  }
+
+  cursor: pointer;
 `;
 
 export default ButtonIcon;

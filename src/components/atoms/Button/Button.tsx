@@ -19,6 +19,7 @@ const Button = styled.button<Props>`
   padding: 0;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
+  outline: none;
 
   ${({ secondary }: Props) =>
     secondary &&
@@ -28,6 +29,12 @@ const Button = styled.button<Props>`
       height: 30px;
       font-size: 1rem;
     `}
+
+  &:focus-visible {
+    box-shadow: 0 0px 6px 4px hsl(0, 0%, 0%, 0.15);
+  }
+
+  cursor: pointer;
 `;
 
 export default Button;
