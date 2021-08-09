@@ -13,6 +13,7 @@ type TwittersProps = {
 
 class Twitters extends Component<TwittersProps> {
   componentDidMount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.fetchTwitters();
   }
 

@@ -1,9 +1,7 @@
 import { Article, Note, Twitter } from 'data/cardContent';
 import {
   ADD_ITEM_SUCCESS,
-  ADD_ITEM_REQUEST,
   REMOVE_ITEM_SUCCESS,
-  REMOVE_ITEM_REQUEST,
   AUTH_SUCCESS,
   AUTH_REQUEST,
   AUTH_FAILURE,
@@ -50,8 +48,7 @@ const rootReducer = (state = initialState, action: any) => {
       };
     case AUTH_SUCCESS:
       return {
-        ...state,
-        isLoading: false,
+        ...basicState,
         userID: action.payload.data._id,
       };
     case AUTH_FAILURE:
@@ -68,8 +65,7 @@ const rootReducer = (state = initialState, action: any) => {
       };
     case REGISTER_SUCCESS:
       return {
-        ...state,
-        isLoading: false,
+        ...basicState,
         userID: action.payload.data._id,
       };
     case REGISTER_FAILURE:
@@ -91,10 +87,7 @@ const rootReducer = (state = initialState, action: any) => {
       };
     case FETCH_SUCCESS:
       return {
-        // ...basicState,
-        ...state,
-        isLoading: false,
-        isError: false,
+        ...basicState,
         [action.payload.itemType]: [...action.payload.data],
       };
     case FETCH_FAILURE:

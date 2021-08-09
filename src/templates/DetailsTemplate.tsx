@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import UserPageTemplate from 'templates/UserPageTemplate';
 
@@ -8,14 +7,14 @@ const StyledWrapper = styled.div`
   height: 100%;
 `;
 
-const DetailsTemplate = ({ children }: any) => (
+type DetailsTemplateProps = {
+  children: React.ReactElement;
+};
+
+const DetailsTemplate = ({ children }: DetailsTemplateProps) => (
   <UserPageTemplate>
     <StyledWrapper>{children}</StyledWrapper>
   </UserPageTemplate>
 );
-
-DetailsTemplate.propTypes = {
-  children: PropTypes.element.isRequired,
-};
 
 export default DetailsTemplate;

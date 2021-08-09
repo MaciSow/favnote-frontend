@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
-import styled from 'styled-components';
-import { routes } from 'routes';
 import Details from 'components/organism/Details/Details';
 import { State } from 'reducers';
 import { connect } from 'react-redux';
@@ -36,10 +34,9 @@ class DetailsPage extends Component<Props> {
       axios
         .get(`http://localhost:9000/api/note/${id}`)
         .then(({ data }) => {
-          console.log(data);
-
           this.setState({ activeItem: data });
         })
+        // eslint-disable-next-line no-console
         .catch((err) => console.log(err));
     }
   }

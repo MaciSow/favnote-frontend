@@ -22,7 +22,10 @@ export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 
-export const removeItem = (itemType: string, id: string) => (dispatch: any) => {
+// eslint-disable-next-line no-unused-vars
+export type TRemoveItem = (itemType: string, id: string) => void;
+
+export const removeItem: TRemoveItem = (itemType: string, id: string) => (dispatch: any) => {
   dispatch({ type: REMOVE_ITEM_REQUEST });
   axios
     .delete(`http://localhost:9000/api/note/${id}`)
@@ -36,6 +39,7 @@ export const removeItem = (itemType: string, id: string) => (dispatch: any) => {
       });
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
       dispatch({ type: REMOVE_ITEM_FAILURE });
     });
@@ -59,6 +63,7 @@ export const addItem = (itemType: string, itemContent: object) => (dispatch: any
       });
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
       dispatch({ type: ADD_ITEM_FAILURE });
     });
@@ -75,6 +80,7 @@ export const authenticate = (username: string, password: string) => (dispatch: a
       dispatch({ type: AUTH_SUCCESS, payload });
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
       dispatch({ type: AUTH_FAILURE });
     });
@@ -91,10 +97,14 @@ export const registerUser = (username: string, password: string) => (dispatch: a
       dispatch({ type: REGISTER_SUCCESS, payload });
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
       dispatch({ type: REGISTER_FAILURE });
     });
 };
+
+// eslint-disable-next-line no-unused-vars
+export type TLogout = () => void;
 
 export const logout = () => (dispatch: any) => {
   dispatch({ type: LOGOUT });
@@ -119,6 +129,7 @@ export const fetchItems = (itemType: string) => (dispatch: any, getState: any) =
       });
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
       dispatch({ type: FETCH_FAILURE });
     });

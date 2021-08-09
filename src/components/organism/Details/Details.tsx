@@ -1,17 +1,16 @@
 import React from 'react';
 import styled, { ThemeProps } from 'styled-components';
-import PropTypes from 'prop-types';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
-import { removeItem as removeItemAction } from 'actions/actions';
+import { removeItem as removeItemAction, TRemoveItem } from 'actions/actions';
 import { connect } from 'react-redux';
 import withContext from 'hoc/withContext';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import trash from 'assets/icons/trash.svg';
-import { MyTheme } from '../../../theme/mainTheme';
+import { MyTheme } from 'theme/mainTheme';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -25,13 +24,6 @@ const StyledHeading = styled(Heading)`
   max-width: 550px;
   margin: 0;
 `;
-
-// const CreatedInfo = styled(Paragraph)`
-//   color: ${({ theme }) => theme.black07};
-//   font-weight: ${({ theme }) => theme.bold};
-//   text-transform: uppercase;
-//   margin-bottom: 24px;
-// `;
 
 type AvatarProps = {
   avatarUrl?: string;
@@ -100,7 +92,23 @@ const StyledButtonWrapper = styled.div`
   margin: 24px 0 16px 0;
 `;
 
-const Details = ({ id, pageContext, title, content, twitterName, articleImageUrl, removeItem }: any) => {
+type DetailsProps = {
+  id: string;
+  pageContext?: 'notes' | 'twitters' | 'articles';
+  title: string;
+  content: string;
+  twitterName?: string;
+  articleImageUrl?: string;
+  removeItem: TRemoveItem;
+} & typeof DetailsDefaultProps;
+
+const DetailsDefaultProps = {
+  pageContext: 'notes',
+  twitterName: 'Noname :c',
+  articleImageUrl: '',
+};
+
+const Details = ({ id, pageContext, title, content, twitterName, articleImageUrl, removeItem }: DetailsProps) => {
   const correctLink = pageContext === 'twitters' ? `https://twitter.com/${twitterName}` : articleImageUrl;
   const twitterImg =
     articleImageUrl !== ''
@@ -139,21 +147,7 @@ const Details = ({ id, pageContext, title, content, twitterName, articleImageUrl
   );
 };
 
-Details.propTypes = {
-  id: PropTypes.string.isRequired,
-  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  twitterName: PropTypes.string,
-  articleImageUrl: PropTypes.string,
-  removeItem: PropTypes.func.isRequired,
-};
-
-Details.defaultProps = {
-  pageContext: 'notes',
-  twitterName: 'Noname :c',
-  articleImageUrl: '',
-};
+Details.defaultProps = DetailsDefaultProps;
 
 const mapDispatchToProps = (dispatch: any) => ({
   removeItem: (itemType: string, id: string) => dispatch(removeItemAction(itemType, id)),

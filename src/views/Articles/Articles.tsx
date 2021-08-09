@@ -13,6 +13,7 @@ type ArticlesProps = {
 
 class Articles extends Component<ArticlesProps> {
   componentDidMount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.fetchArticles();
   }
 

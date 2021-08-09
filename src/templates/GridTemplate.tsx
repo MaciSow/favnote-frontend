@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component, ReactChildren, ReactElement, ReactNode } from 'react';
-import styled, { css, ThemeProps } from 'styled-components';
+import styled, { ThemeProps } from 'styled-components';
 import { connect } from 'react-redux';
 import { MyTheme } from 'theme/mainTheme';
 import { State } from 'reducers';

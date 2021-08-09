@@ -9,8 +9,8 @@ x- handle logout by Sidebar
 x- add some animation
 x- fix outline on buttons (global)
 x- fix cursor over buttons
-- clean up code
-- fix props and change propTypes to TS
+x- clean up code
+x- fix props and change propTypes to TS
 - get out type 'any'
 
 New Item Bar

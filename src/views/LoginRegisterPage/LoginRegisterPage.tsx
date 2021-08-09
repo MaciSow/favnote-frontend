@@ -100,6 +100,7 @@ type FormValues = {
 
 class LoginRegisterPage extends Component<LoginRegisterPageProps> {
   state = {
+    // eslint-disable-next-line react/destructuring-assignment
     showError: this.props.isError,
   };
 

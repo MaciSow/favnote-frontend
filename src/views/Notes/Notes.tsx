@@ -13,6 +13,7 @@ type NotesProps = {
 
 class Notes extends Component<NotesProps> {
   componentDidMount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.fetchNotes();
   }
 
