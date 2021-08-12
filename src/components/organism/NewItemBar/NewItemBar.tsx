@@ -5,7 +5,7 @@ import styled, { ThemeProps } from 'styled-components';
 
 import withContext from 'hoc/withContext';
 import { MyTheme } from 'theme/mainTheme';
-import { addItem as addItemAction } from 'actions/actions';
+import { addItem as addItemAction, TAction, TDispatch } from 'actions/actions';
 import Heading from 'components/atoms/Heading/Heading';
 import AddItemForm from '../../molecules/Form/AddItemForm';
 
@@ -45,7 +45,7 @@ type NewItemBarProps = {
   handleClose: any;
   isVisible: boolean;
   pageContext: string;
-  addItem: any;
+  addItem: TAction;
 };
 
 export type WarningValue = {
@@ -117,7 +117,7 @@ const NewItemBar = ({ handleResetForm, handleClose, isVisible, pageContext, addI
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: TDispatch) => ({
   addItem: (itemType: string, itemContent: object) => dispatch(addItemAction(itemType, itemContent)),
 });
 

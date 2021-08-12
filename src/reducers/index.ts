@@ -1,4 +1,5 @@
 import { Article, Note, Twitter } from 'data/cardContent';
+import { Reducer } from 'redux';
 import {
   ADD_ITEM_SUCCESS,
   REMOVE_ITEM_SUCCESS,
@@ -32,7 +33,7 @@ const initialState = {
   notes: [],
 } as State;
 
-const rootReducer = (state = initialState, action: any) => {
+const rootReducer: Reducer<State> = (state = initialState, action) => {
   const basicState = {
     ...state,
     isLoading: false,

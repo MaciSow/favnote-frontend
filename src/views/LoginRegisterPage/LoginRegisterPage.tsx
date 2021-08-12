@@ -9,7 +9,12 @@ import Button from 'components/atoms/Button/Button';
 import Input from 'components/atoms/Input/Input';
 import Heading from 'components/atoms/Heading/Heading';
 import LogoIcon from 'assets/icons/logo.svg';
-import { authenticate as authenticateAction, registerUser as registerUserAction } from 'actions/actions';
+import {
+  authenticate as authenticateAction,
+  registerUser as registerUserAction,
+  TAction,
+  TDispatch,
+} from 'actions/actions';
 import { State } from 'reducers';
 
 const StyledWrapper = styled.div`
@@ -87,8 +92,8 @@ const StyledButton = styled(Button)<ButtonProps>`
 type LoginRegisterPageProps = {
   pageContext: string;
   userID: string;
-  authenticate: any;
-  registerUser: any;
+  authenticate: TAction;
+  registerUser: TAction;
   isLoading: boolean;
   isError: boolean;
 };
@@ -201,7 +206,7 @@ const mapStateToProps = ({ userID = '', isLoading, isError }: State) => ({
   isError,
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: TDispatch) => ({
   authenticate: (username: string, password: string) => dispatch(authenticateAction(username, password)),
   registerUser: (username: string, password: string) => dispatch(registerUserAction(username, password)),
 });

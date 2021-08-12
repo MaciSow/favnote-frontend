@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
 import Details from 'components/organism/Details/Details';
 import { State } from 'reducers';
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withContext from 'hoc/withContext';
 import axios from 'axios';
+import { Item } from 'data/cardContent';
 
-type Props = {
-  match: any;
+interface MatchParams {
+  id: string;
+}
+
+interface Props extends RouteComponentProps<MatchParams> {
   pageContext: string;
-  activeItem: any;
-};
+  activeItem: Item;
+}
 
 class DetailsPage extends Component<Props> {
   state = {
@@ -63,7 +68,7 @@ const mapStateToProps = (state: State, ownProps: Props) => {
   if (state[ownProps.pageContext].length) {
     return {
       // @ts-ignore
-      activeItem: state[ownProps.pageContext].find((item: any) => item._id === ownProps.match.params.id),
+      activeItem: state[ownProps.pageContext].find((item: Item) => item._id === ownProps.match.params.id),
     };
   }
   return {};

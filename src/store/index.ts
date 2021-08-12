@@ -9,3 +9,7 @@ const store = createStore(rootReducer as Reducer, composeEnharcers(applyMiddlewa
 /* eslint-enable */
 
 export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type GetRootState = () => RootState;

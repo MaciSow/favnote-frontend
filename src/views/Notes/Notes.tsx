@@ -4,11 +4,11 @@ import Card from 'components/molecules/Card/Card';
 import GridTemplate from 'templates/GridTemplate';
 import { State } from 'reducers';
 import { Note } from 'data/cardContent';
-import { fetchItems } from 'actions/actions';
+import { fetchItems, TDispatch } from 'actions/actions';
 
 type NotesProps = {
   notes: Note[];
-  fetchNotes: any;
+  fetchNotes: () => void;
 };
 
 class Notes extends Component<NotesProps> {
@@ -34,7 +34,7 @@ const mapStateToProps = (state: State) => {
   return { notes };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: TDispatch) => ({
   fetchNotes: () => dispatch(fetchItems('notes')),
 });
 

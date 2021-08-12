@@ -10,7 +10,7 @@ import logoIcon from 'assets/icons/logo.svg';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import withContext from 'hoc/withContext';
 import { connect } from 'react-redux';
-import { logout as logoutAction, TLogout } from '../../../actions/actions';
+import { logout as logoutAction, TAction, TDispatch } from 'actions/actions';
 
 type Props = {
   activecolor: string;
@@ -85,7 +85,7 @@ const StyledBulbButton = styled(StyledButton)`
 
 type SidebarProps = {
   pageContext?: 'notes' | 'twitters' | 'articles' | 'login';
-  logout: TLogout;
+  logout: TAction;
 };
 
 const Sidebar = ({ pageContext, logout }: SidebarProps) => (
@@ -104,7 +104,7 @@ Sidebar.defaultProps = {
   pageContext: 'notes',
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: TDispatch) => ({
   logout: () => dispatch(logoutAction()),
 });
 

@@ -7,7 +7,7 @@ import { MyTheme } from 'theme/mainTheme';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
-import { removeItem as removeItemAction } from 'actions/actions';
+import { removeItem as removeItemAction, TAction, TDispatch } from 'actions/actions';
 import withContext from 'hoc/withContext';
 
 type Props = {
@@ -111,7 +111,7 @@ type CardProps = {
   articleUrl?: string;
   content: string;
   id: string;
-  removeItem?: any;
+  removeItem: TAction;
 };
 
 class Card extends Component<CardProps> {
@@ -167,7 +167,7 @@ class Card extends Component<CardProps> {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: TDispatch) => ({
   removeItem: (itemType: string, id: string) => dispatch(removeItemAction(itemType, id)),
 });
 

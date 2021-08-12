@@ -91,23 +91,19 @@ export const notes: Note[] = [
   },
 ];
 
-export type Twitter = {
+export interface Item {
   _id: string;
   title: string;
   content: string;
+}
+
+export interface Twitter extends Item {
   articleImageUrl: string;
   twitterName: string;
-};
+}
 
-export type Article = {
-  _id: string;
-  title: string;
-  content: string;
+export interface Article extends Item {
   articleImageUrl: string;
-};
+}
 
-export type Note = {
-  _id: string;
-  title: string;
-  content: string;
-};
+export interface Note extends Item {}

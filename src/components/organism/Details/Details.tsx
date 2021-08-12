@@ -5,7 +5,7 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
-import { removeItem as removeItemAction, TRemoveItem } from 'actions/actions';
+import { removeItem as removeItemAction, TAction, TDispatch } from 'actions/actions';
 import { connect } from 'react-redux';
 import withContext from 'hoc/withContext';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
@@ -99,7 +99,7 @@ type DetailsProps = {
   content: string;
   twitterName?: string;
   articleImageUrl?: string;
-  removeItem: TRemoveItem;
+  removeItem: TAction;
 } & typeof DetailsDefaultProps;
 
 const DetailsDefaultProps = {
@@ -149,7 +149,7 @@ const Details = ({ id, pageContext, title, content, twitterName, articleImageUrl
 
 Details.defaultProps = DetailsDefaultProps;
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: TDispatch) => ({
   removeItem: (itemType: string, id: string) => dispatch(removeItemAction(itemType, id)),
 });
 

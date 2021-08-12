@@ -4,11 +4,11 @@ import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card/Card';
 import { State } from 'reducers';
 import { Twitter } from 'data/cardContent';
-import { fetchItems } from 'actions/actions';
+import { fetchItems, TDispatch } from 'actions/actions';
 
 type TwittersProps = {
   twitters: Twitter[];
-  fetchTwitters: any;
+  fetchTwitters: () => void;
 };
 
 class Twitters extends Component<TwittersProps> {
@@ -41,7 +41,7 @@ const mapStateToProps = (state: State) => {
   return { twitters };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: TDispatch) => ({
   fetchTwitters: () => dispatch(fetchItems('twitters')),
 });
 

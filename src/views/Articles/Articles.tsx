@@ -4,11 +4,11 @@ import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card/Card';
 import { State } from 'reducers';
 import { Article } from '../../data/cardContent';
-import { fetchItems } from '../../actions/actions';
+import { fetchItems, TDispatch } from '../../actions/actions';
 
 type ArticlesProps = {
   articles: Article[];
-  fetchArticles: any;
+  fetchArticles: () => void;
 };
 
 class Articles extends Component<ArticlesProps> {
@@ -35,7 +35,7 @@ const mapStateToProps = (state: State) => {
   return { articles };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: TDispatch) => ({
   fetchArticles: () => dispatch(fetchItems('articles')),
 });
 
