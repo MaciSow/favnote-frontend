@@ -3,7 +3,7 @@ import { myTheme } from 'theme/mainTheme';
 import React from 'react';
 import Heading from '../Heading/Heading';
 
-type Props = {
+type LoadingProps = {
   size?: string;
   color?: string;
 } & typeof defaultProps;
@@ -33,10 +33,10 @@ const StyledAnimation = styled.div`
   div {
     position: absolute;
     top: 33px;
-    width: ${({ size }: Props) => size};
-    height: ${({ size }: Props) => size};
+    width: ${({ size }: LoadingProps) => size};
+    height: ${({ size }: LoadingProps) => size};
     border-radius: 50%;
-    background: ${({ color }: Props) => color};
+    background: ${({ color }: LoadingProps) => color};
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
 
@@ -86,7 +86,7 @@ const StyledAnimation = styled.div`
   }
 `;
 
-const Loading = ({ color, size }: Props) => (
+const Loading = ({ color, size }: LoadingProps) => (
   <StyledWrapper>
     <StyledHeading color={color} big>
       Loading

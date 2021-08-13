@@ -29,9 +29,17 @@ export type TAction = ActionCreator<ThunkAction<void, RootState, unknown, Action
 
 export type TDispatch = ThunkDispatch<RootState, void, Action>;
 
-export type ThunkResult<R> = ThunkAction<R, RootState, unknown, Action>;
+/* eslint-disable no-unused-vars */
 
-export const removeItem: TAction = (itemType: string, id: string) => (dispatch: TDispatch) => {
+export type TRemoveItem = (itemType: string, id: string) => void;
+
+export type TAddItem = (itemType: string, itemContent: object) => void;
+
+export type TLoginRegister = (username: string, password: string) => void;
+
+/* eslint-enable */
+
+export const removeItem: TAction & TRemoveItem = (itemType: string, id: string) => (dispatch: TDispatch) => {
   dispatch({ type: REMOVE_ITEM_REQUEST });
   axios
     .delete(`http://localhost:9000/api/note/${id}`)
@@ -51,7 +59,7 @@ export const removeItem: TAction = (itemType: string, id: string) => (dispatch: 
     });
 };
 
-export const addItem: TAction =
+export const addItem: TAction & TAddItem =
   (itemType: string, itemContent: object) => (dispatch: TDispatch, getState: GetRootState) => {
     dispatch({ type: ADD_ITEM_REQUEST });
     axios
@@ -76,7 +84,7 @@ export const addItem: TAction =
       });
   };
 
-export const authenticate: TAction = (username: string, password: string) => (dispatch: TDispatch) => {
+export const authenticate: TAction & TLoginRegister = (username: string, password: string) => (dispatch: TDispatch) => {
   dispatch({ type: AUTH_REQUEST });
   return axios
     .post('http://localhost:9000/api/user/login', {
@@ -93,7 +101,7 @@ export const authenticate: TAction = (username: string, password: string) => (di
     });
 };
 
-export const registerUser: TAction = (username: string, password: string) => (dispatch: TDispatch) => {
+export const registerUser: TAction & TLoginRegister = (username: string, password: string) => (dispatch: TDispatch) => {
   dispatch({ type: REGISTER_REQUEST });
   return axios
     .post('http://localhost:9000/api/user/register', {

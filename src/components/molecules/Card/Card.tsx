@@ -7,19 +7,15 @@ import { MyTheme } from 'theme/mainTheme';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
-import { removeItem as removeItemAction, TAction, TDispatch } from 'actions/actions';
-import withContext from 'hoc/withContext';
+import { removeItem as removeItemAction, TDispatch, TRemoveItem } from 'actions/actions';
+import withContext, { PageContextProps } from 'hoc/withContext';
+import { basicTwitter } from 'data/cardContent';
 
-type Props = {
-  activecolor?: string;
-  flex?: boolean;
-};
-
-type StyledWrapperProps = {
+type WrapperProps = {
   isHover: boolean;
 };
 
-const StyledWrapper = styled.div<StyledWrapperProps>`
+const StyledWrapper = styled.div<WrapperProps>`
   min-height: 380px;
   min-width: 380px;
   box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
@@ -69,10 +65,15 @@ const StyledLinkButton = styled.a`
   top: 25%;
 `;
 
-const InnerWrapper = styled.div<Props>`
+type InnerWrapperProps = {
+  activecolor?: string;
+  flex?: boolean;
+};
+
+const InnerWrapper = styled.div<InnerWrapperProps>`
   position: relative;
   padding: 17px 64px 17px 30px;
-  background-color: ${({ activecolor, theme }: Props & ThemeProps<MyTheme>) =>
+  background-color: ${({ activecolor, theme }: InnerWrapperProps & ThemeProps<MyTheme>) =>
     // @ts-ignore
     activecolor ? theme[activecolor] : 'white'};
 
@@ -104,17 +105,21 @@ const StyledButton = styled(Button)`
 `;
 
 type CardProps = {
-  pageContext?: string;
   title: string;
   twitterName?: string;
   twitterImg?: string;
   articleUrl?: string;
   content: string;
   id: string;
-  removeItem: TAction;
+  removeItem: TRemoveItem;
+} & PageContextProps;
+
+type CardState = {
+  redirect: boolean;
+  isHover: boolean;
 };
 
-class Card extends Component<CardProps> {
+class Card extends Component<CardProps, CardState> {
   state = {
     redirect: false,
     isHover: false,
@@ -123,7 +128,7 @@ class Card extends Component<CardProps> {
   handleCardClick = () => this.setState({ redirect: true });
 
   handleMouseOver = () => {
-    this.setState((prevState: any) => (prevState.hover ? null : { isHover: true }));
+    this.setState((prevState) => (prevState.isHover ? null : { isHover: true }));
   };
 
   handleMouseLeave = () => {
@@ -133,10 +138,7 @@ class Card extends Component<CardProps> {
   render() {
     const { pageContext, id, title, twitterName, twitterImg, articleUrl, content, removeItem } = this.props;
     const { redirect, isHover } = this.state;
-    const imageLink =
-      twitterImg && twitterImg !== ''
-        ? twitterImg
-        : 'https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png';
+    const imageLink = twitterImg && twitterImg !== '' ? twitterImg : basicTwitter;
 
     if (redirect) {
       return <Redirect to={`${pageContext}/${id}`} />;

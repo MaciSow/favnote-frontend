@@ -8,15 +8,15 @@ import penIcon from 'assets/icons/pen.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
 import logoIcon from 'assets/icons/logo.svg';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
-import withContext from 'hoc/withContext';
+import withContext, { PageContextProps } from 'hoc/withContext';
 import { connect } from 'react-redux';
-import { logout as logoutAction, TAction, TDispatch } from 'actions/actions';
+import { logout as logoutAction, TDispatch } from 'actions/actions';
 
-type Props = {
+type WrapperProps = {
   activecolor: string;
 };
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<WrapperProps>`
   position: fixed;
   left: 0;
   top: 0;
@@ -25,7 +25,7 @@ const StyledWrapper = styled.div`
   justify-content: center;
   width: 153px;
   height: 100vh;
-  background-color: ${({ activecolor, theme }: Props & ThemeProps<MyTheme>) =>
+  background-color: ${({ activecolor, theme }: WrapperProps & ThemeProps<MyTheme>) =>
     // @ts-ignore
     activecolor ? theme[activecolor] : 'white'};
 `;
@@ -84,12 +84,11 @@ const StyledBulbButton = styled(StyledButton)`
 `;
 
 type SidebarProps = {
-  pageContext?: 'notes' | 'twitters' | 'articles' | 'login';
-  logout: TAction;
-};
+  logout: () => void;
+} & PageContextProps;
 
 const Sidebar = ({ pageContext, logout }: SidebarProps) => (
-  <StyledWrapper activecolor={pageContext as string}>
+  <StyledWrapper activecolor={pageContext}>
     <StyledLogo to="/" />
     <StyledChooseBar>
       <StyledButton as={NavLink} activeClassName="active" to="/notes" icon={penIcon} />
@@ -99,10 +98,6 @@ const Sidebar = ({ pageContext, logout }: SidebarProps) => (
     <StyledLogout as={NavLink} to="/login" icon={logoutIcon} onClick={logout} />
   </StyledWrapper>
 );
-
-Sidebar.defaultProps = {
-  pageContext: 'notes',
-};
 
 const mapDispatchToProps = (dispatch: TDispatch) => ({
   logout: () => dispatch(logoutAction()),

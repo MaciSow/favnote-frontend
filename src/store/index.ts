@@ -2,14 +2,11 @@ import { createStore, Reducer, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from 'reducers';
 
-/* eslint-disable no-underscore-dangle */
-const composeEnharcers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer as Reducer, composeEnharcers(applyMiddleware(thunk)));
-/* eslint-enable */
+const store = createStore(rootReducer as Reducer, composeEnhancers(applyMiddleware(thunk)));
 
 export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 export type GetRootState = () => RootState;

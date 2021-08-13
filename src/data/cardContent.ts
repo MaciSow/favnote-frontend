@@ -1,3 +1,23 @@
+export type Item = {
+  _id: string;
+  title: string;
+  content: string;
+};
+
+export type Twitter = {
+  articleImageUrl: string;
+  twitterName: string;
+} & Item;
+
+export type Article = {
+  articleImageUrl: string;
+} & Item;
+
+export type Note = Item;
+
+export const basicTwitter =
+  'https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png';
+
 export const articles: Article[] = [
   {
     _id: '1',
@@ -90,20 +110,3 @@ export const notes: Note[] = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
   },
 ];
-
-export interface Item {
-  _id: string;
-  title: string;
-  content: string;
-}
-
-export interface Twitter extends Item {
-  articleImageUrl: string;
-  twitterName: string;
-}
-
-export interface Article extends Item {
-  articleImageUrl: string;
-}
-
-export interface Note extends Item {}

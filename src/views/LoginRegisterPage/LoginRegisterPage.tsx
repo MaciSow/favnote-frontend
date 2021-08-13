@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Formik, Form, Field, FormikErrors, ErrorMessage } from 'formik';
-import withContext from 'hoc/withContext';
+import withContext, { PageContextProps } from 'hoc/withContext';
 import { routes } from 'routes';
 import Button from 'components/atoms/Button/Button';
 import Input from 'components/atoms/Input/Input';
@@ -12,8 +12,8 @@ import LogoIcon from 'assets/icons/logo.svg';
 import {
   authenticate as authenticateAction,
   registerUser as registerUserAction,
-  TAction,
   TDispatch,
+  TLoginRegister,
 } from 'actions/actions';
 import { State } from 'reducers';
 
@@ -89,21 +89,24 @@ const StyledButton = styled(Button)<ButtonProps>`
     `}
 `;
 
-type LoginRegisterPageProps = {
-  pageContext: string;
-  userID: string;
-  authenticate: TAction;
-  registerUser: TAction;
-  isLoading: boolean;
-  isError: boolean;
-};
-
 type FormValues = {
   username: string;
   password: string;
 };
 
-class LoginRegisterPage extends Component<LoginRegisterPageProps> {
+type LoginRegisterPageProps = {
+  userID: string;
+  authenticate: TLoginRegister;
+  registerUser: TLoginRegister;
+  isLoading: boolean;
+  isError: boolean;
+} & PageContextProps;
+
+type LoginRegisterPageState = {
+  showError: boolean;
+};
+
+class LoginRegisterPage extends Component<LoginRegisterPageProps, LoginRegisterPageState> {
   state = {
     // eslint-disable-next-line react/destructuring-assignment
     showError: this.props.isError,

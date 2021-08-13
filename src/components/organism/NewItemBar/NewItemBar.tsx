@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Formik, FormikErrors } from 'formik';
+import { Formik, FormikErrors, FormikHandlers } from 'formik';
 import styled, { ThemeProps } from 'styled-components';
-
-import withContext from 'hoc/withContext';
+import withContext, { PageContextProps } from 'hoc/withContext';
 import { MyTheme } from 'theme/mainTheme';
-import { addItem as addItemAction, TAction, TDispatch } from 'actions/actions';
+import { addItem as addItemAction, TAddItem, TDispatch } from 'actions/actions';
 import Heading from 'components/atoms/Heading/Heading';
 import AddItemForm from '../../molecules/Form/AddItemForm';
 
@@ -40,20 +39,23 @@ type FormValues = {
   articleImageUrl: string;
   twitterName: string;
 };
+
+// eslint-disable-next-line no-unused-vars
+export type TResetFunctionContainer = (resetFunction: FormikHandlers['handleReset']) => void;
+
 type NewItemBarProps = {
-  handleResetForm: any;
-  handleClose: any;
+  resetFunctionContainer: TResetFunctionContainer;
+  handleClose: () => void;
   isVisible: boolean;
-  pageContext: string;
-  addItem: TAction;
-};
+  addItem: TAddItem;
+} & PageContextProps;
 
 export type WarningValue = {
   invalidValue: boolean;
   firstClick: boolean;
 };
 
-const NewItemBar = ({ handleResetForm, handleClose, isVisible, pageContext, addItem }: NewItemBarProps) => {
+const NewItemBar = ({ resetFunctionContainer, handleClose, isVisible, pageContext, addItem }: NewItemBarProps) => {
   const inputWarning = {
     invalidValue: false,
     firstClick: false,
@@ -106,7 +108,7 @@ const NewItemBar = ({ handleResetForm, handleClose, isVisible, pageContext, addI
       >
         {({ handleReset }) => (
           <AddItemForm
-            handleResetForm={handleResetForm}
+            resetFunctionContainer={resetFunctionContainer}
             handleReset={handleReset}
             tickFirstClick={tickFirstClick}
             checkWarning={checkWarning}

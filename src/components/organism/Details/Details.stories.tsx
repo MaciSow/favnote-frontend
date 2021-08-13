@@ -27,6 +27,12 @@ const content = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque
  nobis non nostrum placeat quam sed, sequi similique? Commodi deserunt distinctio eos eveniet ipsam 
  minus mollitia, perferendis placeat quaerat vel.`;
 
-export const Note: React.VFC = () => <Details title={title} content={content} />;
-export const Twitter: React.VFC = () => <Details title={title} content={content} />;
-export const Article: React.VFC = () => <Details title={title} content={content} />;
+export const Note: React.VFC = () => (
+  <Details id="1" title={title} content={content} twitterName="" articleImageUrl="" />
+);
+export const Twitter: React.VFC = () => (
+  <Details id="1" title={title} content={content} twitterName="" articleImageUrl="" />
+);
+export const Article: React.VFC = () => (
+  <Details id="1" title={title} content={content} twitterName="" articleImageUrl="" />
+);

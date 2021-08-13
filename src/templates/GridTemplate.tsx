@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component, ReactChildren, ReactElement, ReactNode } from 'react';
+import React, { ChangeEvent, Component, ReactElement, ReactNode } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { connect } from 'react-redux';
 import { MyTheme } from 'theme/mainTheme';
@@ -9,8 +9,9 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import NewItemBar from 'components/organism/NewItemBar/NewItemBar';
 import plusIcon from 'assets/icons/plus.svg';
-import withContext from 'hoc/withContext';
+import withContext, { PageContextProps } from 'hoc/withContext';
 import Loading from 'components/atoms/Loading/Loading';
+import { FormikHandlers } from 'formik';
 import UserPageTemplate from './UserPageTemplate';
 
 const StyledWrapper = styled.div`
@@ -92,14 +93,20 @@ const StyledLoading = styled.div`
   padding-top: 24px;
 `;
 
-type GridProps = {
+type GridTemplateProps = {
   children: ReactNode;
-  pageContext: string;
   isLoading: boolean;
   isError: boolean;
+} & PageContextProps;
+
+type GridTemplateState = {
+  isNewBarVisible: boolean;
+  cards: Array<ReactElement>;
+  value: string;
+  resetFunction: () => void;
 };
 
-class GridTemplate extends Component<GridProps> {
+class GridTemplate extends Component<GridTemplateProps, GridTemplateState> {
   state = {
     isNewBarVisible: false,
     cards: [],
@@ -111,7 +118,7 @@ class GridTemplate extends Component<GridProps> {
     this.setBasicCard();
   }
 
-  componentDidUpdate(prevProps: Readonly<GridProps>) {
+  componentDidUpdate(prevProps: Readonly<GridTemplateProps>) {
     const { children } = this.props;
     if (prevProps.children !== children) {
       this.setBasicCard();
@@ -119,7 +126,7 @@ class GridTemplate extends Component<GridProps> {
   }
 
   toggleNewItemBar = () => {
-    this.setState((prevState: any) => ({
+    this.setState((prevState) => ({
       isNewBarVisible: !prevState.isNewBarVisible,
     }));
 
@@ -130,12 +137,12 @@ class GridTemplate extends Component<GridProps> {
     const { children } = this.props;
 
     this.setState({
-      cards: [...(children as Array<ReactChildren>)],
+      cards: [...(children as Array<ReactElement>)],
       value: '',
     });
   };
 
-  addResetFunction = (resetFunction: any) => {
+  addResetFunction = (resetFunction: FormikHandlers['handleReset']) => {
     this.setState({ resetFunction });
   };
 
@@ -197,7 +204,7 @@ class GridTemplate extends Component<GridProps> {
             activecolor={pageContext}
           />
           <NewItemBar
-            handleResetForm={this.addResetFunction}
+            resetFunctionContainer={this.addResetFunction}
             handleClose={this.toggleNewItemBar}
             isVisible={isNewBarVisible}
           />

@@ -4,8 +4,17 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'theme/GlobalStyle';
 import { myTheme } from 'theme/mainTheme';
 import PageContext from 'context/context';
+import { RouteComponentProps } from 'react-router-dom';
 
-class MainTemplate extends Component<any, any> {
+type MainTemplateProps = {
+  children: React.ReactElement;
+} & RouteComponentProps;
+
+type MainTemplateState = {
+  pageType: string;
+};
+
+class MainTemplate extends Component<MainTemplateProps, MainTemplateState> {
   state = {
     pageType: 'notes',
   };
@@ -14,7 +23,7 @@ class MainTemplate extends Component<any, any> {
     this.setCurrentPage();
   }
 
-  componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>) {
+  componentDidUpdate(prevProps: Readonly<MainTemplateProps>, prevState: Readonly<MainTemplateState>) {
     this.setCurrentPage(prevState.pageType);
   }
 
@@ -23,7 +32,6 @@ class MainTemplate extends Component<any, any> {
     const {
       location: { pathname },
     } = this.props;
-
     let [currentPage] = pageTypes.filter((page) => pathname.includes(page));
     currentPage = currentPage ?? 'notes';
 

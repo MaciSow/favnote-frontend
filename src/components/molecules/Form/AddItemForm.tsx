@@ -3,7 +3,8 @@ import { ErrorMessage, Field, Form, FormikHandlers } from 'formik';
 import styled, { css } from 'styled-components';
 import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
-import withContext from 'hoc/withContext';
+import withContext, { PageContextProps } from 'hoc/withContext';
+import { TResetFunctionContainer } from '../../organism/NewItemBar/NewItemBar';
 
 const StyledForm = styled(Form)`
   display: flex;
@@ -73,17 +74,16 @@ const StyledErrorMessage = styled.p<ErrorMessageProps>`
 `;
 
 type AddItemFormProps = {
-  handleResetForm: any;
-  pageContext: string;
-  tickFirstClick: any;
-  checkWarning: any;
-  handleReset: FormikHandlers;
-};
+  resetFunctionContainer: TResetFunctionContainer;
+  tickFirstClick: () => void;
+  checkWarning: () => boolean;
+  handleReset: FormikHandlers['handleReset'];
+} & PageContextProps;
 
 class AddItemForm extends Component<AddItemFormProps> {
   componentDidMount() {
-    const { handleResetForm, handleReset } = this.props;
-    handleResetForm(handleReset);
+    const { resetFunctionContainer, handleReset } = this.props;
+    resetFunctionContainer(handleReset);
   }
 
   render() {

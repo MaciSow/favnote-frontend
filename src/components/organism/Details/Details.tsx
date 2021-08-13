@@ -5,9 +5,9 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
-import { removeItem as removeItemAction, TAction, TDispatch } from 'actions/actions';
+import { removeItem as removeItemAction, TDispatch, TRemoveItem } from 'actions/actions';
 import { connect } from 'react-redux';
-import withContext from 'hoc/withContext';
+import withContext, { PageContextProps } from 'hoc/withContext';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import trash from 'assets/icons/trash.svg';
 import { MyTheme } from 'theme/mainTheme';
@@ -94,16 +94,15 @@ const StyledButtonWrapper = styled.div`
 
 type DetailsProps = {
   id: string;
-  pageContext?: 'notes' | 'twitters' | 'articles';
   title: string;
   content: string;
   twitterName?: string;
   articleImageUrl?: string;
-  removeItem: TAction;
-} & typeof DetailsDefaultProps;
+  removeItem: TRemoveItem;
+} & typeof DetailsDefaultProps &
+  PageContextProps;
 
 const DetailsDefaultProps = {
-  pageContext: 'notes',
   twitterName: 'Noname :c',
   articleImageUrl: '',
 };

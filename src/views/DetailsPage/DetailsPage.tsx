@@ -4,20 +4,24 @@ import Details from 'components/organism/Details/Details';
 import { State } from 'reducers';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import withContext from 'hoc/withContext';
+import withContext, { PageContextProps } from 'hoc/withContext';
 import axios from 'axios';
 import { Item } from 'data/cardContent';
 
-interface MatchParams {
+type MatchParams = {
   id: string;
-}
+};
 
-interface Props extends RouteComponentProps<MatchParams> {
-  pageContext: string;
+type DetailsPageProps = {
   activeItem: Item;
-}
+} & RouteComponentProps<MatchParams> &
+  PageContextProps;
 
-class DetailsPage extends Component<Props> {
+type DetailsPageState = {
+  activeItem: Item;
+};
+
+class DetailsPage extends Component<DetailsPageProps, DetailsPageState> {
   state = {
     activeItem: {
       _id: '',
@@ -63,7 +67,7 @@ class DetailsPage extends Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State, ownProps: Props) => {
+const mapStateToProps = (state: State, ownProps: DetailsPageProps) => {
   // @ts-ignore
   if (state[ownProps.pageContext].length) {
     return {

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { Meta } from '@storybook/react';
 import StoryRouter from 'storybook-react-router';
 import { myTheme } from 'theme/mainTheme';
@@ -18,6 +18,6 @@ export default {
   ],
 } as Meta;
 
-export const Note: React.VFC<{}> = () => <NewItemBar />;
-export const Twitter: React.VFC<{}> = () => <NewItemBar />;
-export const Article: React.VFC<{}> = () => <NewItemBar />;
+// export const Note: React.VFC<{}> = () => <NewItemBar  />;
+// export const Twitter: React.VFC<{}> = () => <NewItemBar  />;
+// export const Article: React.VFC<{}> = () => <NewItemBar  />;

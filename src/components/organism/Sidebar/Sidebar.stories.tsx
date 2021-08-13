@@ -19,5 +19,5 @@ export default {
 } as Meta;
 
 export const Note: React.VFC<{}> = () => <Sidebar />;
-export const Twitter: React.VFC<{}> = () => <Sidebar sideColor="twitter" />;
-export const Article: React.VFC<{}> = () => <Sidebar sideColor="article" />;
+export const Twitter: React.VFC<{}> = () => <Sidebar />;
+export const Article: React.VFC<{}> = () => <Sidebar />;

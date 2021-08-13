@@ -11,7 +11,8 @@ x- fix outline on buttons (global)
 x- fix cursor over buttons
 x- clean up code
 x- fix props and change propTypes to TS
-- get out type 'any'
+x- get out type 'any'
+- twitter avatar background
 
 New Item Bar
 x- fix hover border (it was outline!)
