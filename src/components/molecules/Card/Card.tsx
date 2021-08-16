@@ -35,6 +35,7 @@ const StyledWrapper = styled.div<WrapperProps>`
 `;
 
 type AvatarProps = {
+  basicAvatar?: string;
   avatarUrl?: string;
 };
 
@@ -43,7 +44,7 @@ const StyledAvatar = styled.a<AvatarProps>`
   height: 86px;
   border: 5px solid ${({ theme }: ThemeProps<MyTheme>) => theme.twitters};
   border-radius: 50%;
-  background-color: black;
+  background-color: ${({ theme }) => theme.twitters};
   background-image: url(${({ avatarUrl }) => avatarUrl});
   background-size: 100%;
   background-position: 50% 50%;
@@ -135,10 +136,19 @@ class Card extends Component<CardProps, CardState> {
     this.setState({ isHover: false });
   };
 
+  getImageLink = () => {
+    const { twitterImg: imageLink } = this.props;
+    if (!imageLink) {
+      return basicTwitter;
+    }
+
+    const extension = imageLink.substr(-4);
+    return ['.jpg', '.png'].includes(extension) ? imageLink : basicTwitter;
+  };
+
   render() {
-    const { pageContext, id, title, twitterName, twitterImg, articleUrl, content, removeItem } = this.props;
+    const { pageContext, id, title, twitterName, articleUrl, content, removeItem } = this.props;
     const { redirect, isHover } = this.state;
-    const imageLink = twitterImg && twitterImg !== '' ? twitterImg : basicTwitter;
 
     if (redirect) {
       return <Redirect to={`${pageContext}/${id}`} />;
@@ -154,7 +164,7 @@ class Card extends Component<CardProps, CardState> {
         >
           <StyledHeading>{title}</StyledHeading>
           {pageContext === 'twitters' && (
-            <StyledAvatar avatarUrl={imageLink} href={`https://twitter.com/${twitterName}`} target="_blank" />
+            <StyledAvatar avatarUrl={this.getImageLink()} href={`https://twitter.com/${twitterName}`} target="_blank" />
           )}
           {pageContext === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
         </InnerWrapper>

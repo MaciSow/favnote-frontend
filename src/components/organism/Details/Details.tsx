@@ -37,7 +37,7 @@ const StyledAvatar = styled.a<AvatarProps>`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: black;
+  background-color: transparent;
   background-image: url(${({ avatarUrl }) => avatarUrl});
   background-size: 100%;
   background-position: 50% 50%;
@@ -109,15 +109,11 @@ const DetailsDefaultProps = {
 
 const Details = ({ id, pageContext, title, content, twitterName, articleImageUrl, removeItem }: DetailsProps) => {
   const correctLink = pageContext === 'twitters' ? `https://twitter.com/${twitterName}` : articleImageUrl;
-  const twitterImg =
-    articleImageUrl !== ''
-      ? articleImageUrl
-      : 'https://escolarevolution.com.br/wp-content/uploads/2021/01/twitter-icon-square-logo-108D17D373-seeklogo.com_.png';
 
   return (
     <StyledWrapper>
       <StyledHeading big>{title}</StyledHeading>
-      {pageContext === 'twitters' && <StyledAvatar href={correctLink} target="_blank" avatarUrl={twitterImg} />}
+      {pageContext === 'twitters' && <StyledAvatar href={correctLink} target="_blank" avatarUrl={articleImageUrl} />}
       <Paragraph>{content}</Paragraph>
       {pageContext !== 'notes' && (
         <StyledLink href={correctLink} target="_blank">

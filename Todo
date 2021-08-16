@@ -12,7 +12,7 @@ x- fix cursor over buttons
 x- clean up code
 x- fix props and change propTypes to TS
 x- get out type 'any'
-- twitter avatar background
+x- twitter avatar background
 
 New Item Bar
 x- fix hover border (it was outline!)
