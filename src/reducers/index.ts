@@ -67,7 +67,7 @@ const rootReducer: Reducer<State> = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...basicState,
-        userID: action.payload.data._id,
+        userID: action.payload.data,
       };
     case REGISTER_FAILURE:
       return {
